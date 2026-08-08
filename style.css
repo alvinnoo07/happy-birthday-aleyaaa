@@ -1,0 +1,639 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body{
+
+    overflow:hidden;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    background:
+    linear-gradient(
+        -45deg,
+        #ff9ecb,
+        #c99cff,
+        #ffc9e2,
+        #b388ff
+    );
+
+    background-size:400% 400%;
+
+    animation:bgMove 12s ease infinite;
+
+}
+
+
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+
+/* =========================
+   SCREEN
+========================= */
+
+.screen{
+
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    flex-direction:column;
+
+}
+
+
+/* =========================
+   ENVELOPE
+========================= */
+
+.envelope{
+
+    position:relative;
+
+    width:330px;
+    height:230px;
+
+    cursor:pointer;
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease;
+
+}
+
+
+/* badan amplop */
+
+.envelope-body{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#ff82b0;
+
+    border-radius:15px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.2);
+
+}
+
+
+/* bagian atas amplop */
+
+.envelope-top{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background:#ff6b9f;
+
+    clip-path:
+        polygon(
+            0 0,
+            50% 55%,
+            100% 0
+        );
+
+    z-index:3;
+
+    transform-origin:top;
+
+    transition:
+        transform 1s ease;
+
+}
+
+
+/* kertas kecil */
+
+.paper{
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    font-size:70px;
+
+}
+
+
+/* =========================
+   HINT
+========================= */
+
+.hint{
+
+    margin-top:30px;
+
+    color:white;
+
+    font-size:18px;
+
+    animation:pulse 2s infinite;
+
+}
+
+
+@keyframes pulse{
+
+    0%,100%{
+        opacity:.5;
+    }
+
+    50%{
+        opacity:1;
+    }
+
+}
+
+
+/* =========================
+   AMPLOP OPEN
+========================= */
+
+.envelope.open{
+
+    transform:
+        scale(1.3)
+        translateY(-20px);
+
+}
+
+
+.envelope.open .envelope-top{
+
+    transform:
+        rotateX(180deg);
+
+}
+
+
+/* =========================
+   LETTER SCREEN
+========================= */
+
+.letter-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transform:scale(.5);
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s ease;
+
+}
+
+
+/* ketika aktif */
+
+.letter-screen.active{
+
+    opacity:1;
+
+    pointer-events:auto;
+
+    transform:scale(1);
+
+}
+
+
+/* =========================
+   LETTER
+========================= */
+
+.letter{
+
+    width:min(650px, 90%);
+
+    min-height:500px;
+
+    padding:50px;
+
+    background:#fffaf5;
+
+    border-radius:10px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.25);
+
+    transform:
+        scale(.7)
+        rotate(-2deg);
+
+    transition:
+        transform 1.2s ease;
+
+}
+
+
+.letter-screen.active .letter{
+
+    transform:
+        scale(1)
+        rotate(0deg);
+
+}
+
+
+.letter h1{
+
+    margin-bottom:30px;
+
+    color:#d85c91;
+
+}
+
+
+.letter p{
+
+    line-height:1.8;
+
+    color:#444;
+
+}
+
+
+/* =========================
+   FINISH BUTTON
+========================= */
+
+#finishBtn{
+
+    margin-top:40px;
+
+    padding:14px 30px;
+
+    border:none;
+
+    border-radius:30px;
+
+    background:#ff76a8;
+
+    color:white;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+#finishBtn:hover{
+
+    transform:scale(1.08);
+
+}
+
+
+/* =========================
+   NEXT SCREEN
+========================= */
+
+.next-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transform:translateX(100%);
+
+    transition:
+        transform 1s ease,
+        opacity 1s ease;
+
+    color:white;
+
+    text-align:center;
+
+}
+
+
+.next-screen.active{
+
+    opacity:1;
+
+    pointer-events:auto;
+
+    transform:translateX(0);
+
+}
+
+
+.next-screen h1{
+
+    font-size:40px;
+
+    margin-bottom:20px;
+
+}
+
+
+.next-screen button{
+
+    margin-top:30px;
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:30px;
+
+    cursor:pointer;
+    
+
+
+}
+/* =========================
+   MUSIC PLAYER
+========================= */
+
+.music-player{
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+
+    width:280px;
+
+    padding:12px 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:rgba(20, 10, 25, .75);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    border-radius:16px;
+
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.25);
+
+    color:white;
+
+    z-index:9999;
+
+    /* awalnya sembunyi */
+
+    opacity:0;
+
+    transform:translateX(-120px);
+
+    pointer-events:none;
+
+    transition:
+        opacity .6s ease,
+        transform .6s ease;
+
+}
+
+
+/* =========================
+   PLAYER MUNCUL
+========================= */
+
+.music-player.show{
+
+    opacity:1;
+
+    transform:translateX(0);
+
+}
+
+
+/* =========================
+   COVER
+========================= */
+
+.music-cover{
+
+    width:48px;
+
+    height:48px;
+
+    min-width:48px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff78ad,
+            #9d6cff
+        );
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+}
+
+
+/* COVER MUTER */
+
+.music-player.playing .music-cover{
+
+    animation:
+        musicRotate 4s linear infinite;
+
+}
+
+
+@keyframes musicRotate{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+.music-info{
+
+    flex:1;
+
+    overflow:hidden;
+
+}
+
+
+.music-title{
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    white-space:nowrap;
+
+}
+
+
+.music-artist{
+
+    margin-top:4px;
+
+    font-size:11px;
+
+    opacity:.6;
+
+}
+
+
+/* =========================
+   MUSIC BARS
+========================= */
+
+.music-bars{
+
+    height:35px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:3px;
+
+}
+
+
+.music-bars span{
+
+    display:block;
+
+    width:3px;
+
+    height:10px;
+
+    background:white;
+
+    border-radius:5px;
+
+}
+
+
+/* ANIMASI BAR */
+
+.music-player.playing .music-bars span{
+
+    animation:
+        musicBar .8s ease-in-out infinite alternate;
+
+}
+
+
+.music-player.playing .music-bars span:nth-child(2){
+
+    animation-delay:.15s;
+
+}
+
+
+.music-player.playing .music-bars span:nth-child(3){
+
+    animation-delay:.3s;
+
+}
+
+
+.music-player.playing .music-bars span:nth-child(4){
+
+    animation-delay:.45s;
+
+}
+
+
+.music-player.playing .music-bars span:nth-child(5){
+
+    animation-delay:.6s;
+
+}
+
+
+@keyframes musicBar{
+
+    from{
+
+        height:7px;
+
+    }
+
+    to{
+
+        height:30px;
+
+    }
+
+}
