@@ -1,26 +1,27 @@
-/* =========================
+/* ==================================================
    RESET
-========================= */
+================================================== */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
-/* =========================
+/* ==================================================
    BODY
-========================= */
+================================================== */
 
-body{
+body {
+    width: 100%;
+    height: 100vh;
 
-    overflow:hidden;
+    overflow: hidden;
 
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
-    background:
-    linear-gradient(
+    background: linear-gradient(
         -45deg,
         #ff9ecb,
         #c99cff,
@@ -28,449 +29,323 @@ body{
         #b388ff
     );
 
-    background-size:400% 400%;
+    background-size: 400% 400%;
 
-    animation:bgMove 12s ease infinite;
-
+    animation: bgMove 12s ease infinite;
 }
 
 
-@keyframes bgMove{
+/* ==================================================
+   BACKGROUND ANIMATION
+================================================== */
 
-    0%{
-        background-position:0% 50%;
+@keyframes bgMove {
+
+    0% {
+        background-position: 0% 50%;
     }
 
-    50%{
-        background-position:100% 50%;
+    50% {
+        background-position: 100% 50%;
     }
 
-    100%{
-        background-position:0% 50%;
+    100% {
+        background-position: 0% 50%;
     }
-
 }
 
 
-/* =========================
-   SCREEN
-========================= */
+/* ==================================================
+   GENERAL SCREEN
+================================================== */
 
-.screen{
+.screen {
+    position: fixed;
 
-    width:100vw;
-    height:100vh;
+    inset: 0;
 
-    display:flex;
-
-    justify-content:center;
-    align-items:center;
-
-    flex-direction:column;
-
+    width: 100%;
+    height: 100vh;
 }
 
 
-/* =========================
-   ENVELOPE
-========================= */
+/* ==================================================
+   ENVELOPE SCREEN
+================================================== */
 
-.envelope{
+.envelope-screen {
+    display: flex;
 
-    position:relative;
+    flex-direction: column;
 
-    width:330px;
-    height:230px;
+    justify-content: center;
 
-    cursor:pointer;
+    align-items: center;
 
     transition:
-        transform 1s ease,
-        opacity 1s ease;
-
+        opacity 1s ease,
+        transform 1s ease;
 }
 
 
-/* badan amplop */
+/* ==================================================
+   ENVELOPE
+================================================== */
 
-.envelope-body{
+.envelope {
+    position: relative;
 
-    position:absolute;
+    width: 320px;
+    height: 220px;
 
-    width:100%;
-    height:100%;
+    background: #ff84ae;
 
-    background:#ff82b0;
+    border-radius: 12px;
 
-    border-radius:15px;
+    cursor: pointer;
+
+    overflow: hidden;
 
     box-shadow:
-        0 20px 50px rgba(0,0,0,.2);
+        0 0 30px rgba(255, 255, 255, 0.5),
+        0 25px 50px rgba(0, 0, 0, 0.2);
 
+    animation: floating 3s ease-in-out infinite;
+
+    transition:
+        transform 0.6s ease;
 }
 
 
-/* bagian atas amplop */
+/* ==================================================
+   ENVELOPE TOP / FLAP
+================================================== */
 
-.envelope-top{
+.envelope-top {
+    position: absolute;
 
-    position:absolute;
+    top: 0;
+    left: 0;
 
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 
-    background:#ff6b9f;
+    background: #ff6b9f;
 
-    clip-path:
-        polygon(
-            0 0,
-            50% 55%,
-            100% 0
-        );
+    clip-path: polygon(
+        0 0,
+        50% 55%,
+        100% 0
+    );
 
-    z-index:3;
+    transform-origin: top;
 
-    transform-origin:top;
+    transition:
+        transform 0.8s ease;
+
+    z-index: 4;
+}
+
+
+/* ==================================================
+   ENVELOPE BODY
+================================================== */
+
+.envelope-body {
+    position: absolute;
+
+    inset: 0;
+
+    background: #ff84ae;
+
+    z-index: 2;
+}
+
+
+/* ==================================================
+   PAPER DI DALAM
+================================================== */
+
+.paper {
+    position: absolute;
+
+    left: 50%;
+
+    bottom: 10px;
+
+    transform:
+        translateX(-50%)
+        translateY(120px);
+
+    width: 85%;
+    height: 170px;
+
+    background: white;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 40px;
 
     transition:
         transform 1s ease;
 
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+
+    z-index: 3;
 }
 
 
-/* kertas kecil */
+/* ==================================================
+   ENVELOPE OPEN
+================================================== */
 
-.paper{
+.envelope.open {
+    transform: scale(1.05);
+}
 
-    position:absolute;
 
-    left:50%;
-    top:50%;
+.envelope.open .envelope-top {
+    transform: rotateX(180deg);
+}
 
+
+.envelope.open .paper {
     transform:
-        translate(-50%, -50%);
-
-    font-size:70px;
-
-}
-
-
-/* =========================
-   HINT
-========================= */
-
-.hint{
-
-    margin-top:30px;
-
-    color:white;
-
-    font-size:18px;
-
-    animation:pulse 2s infinite;
-
-}
-
-
-@keyframes pulse{
-
-    0%,100%{
-        opacity:.5;
-    }
-
-    50%{
-        opacity:1;
-    }
-
-}
-
-
-/* =========================
-   AMPLOP OPEN
-========================= */
-
-.envelope.open{
-
-    transform:
-        scale(1.3)
+        translateX(-50%)
         translateY(-20px);
-
 }
 
 
-.envelope.open .envelope-top{
+/* ==================================================
+   FLOATING ENVELOPE
+================================================== */
 
-    transform:
-        rotateX(180deg);
+@keyframes floating {
 
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 
-/* =========================
-   LETTER SCREEN
-========================= */
+/* ==================================================
+   HINT TEXT
+================================================== */
 
-.letter-screen{
+.hint {
+    margin-top: 25px;
 
-    position:fixed;
+    color: white;
 
-    inset:0;
+    font-size: 18px;
 
-    opacity:0;
+    text-shadow:
+        0 2px 5px rgba(0, 0, 0, 0.2);
 
-    pointer-events:none;
-
-    transform:scale(.5);
-
-    transition:
-        opacity 1s ease,
-        transform 1.2s ease;
-
+    animation:
+        hintPulse 2s ease-in-out infinite;
 }
 
 
-/* ketika aktif */
+@keyframes hintPulse {
 
-.letter-screen.active{
+    0%,
+    100% {
+        opacity: 0.7;
+    }
 
-    opacity:1;
-
-    pointer-events:auto;
-
-    transform:scale(1);
-
+    50% {
+        opacity: 1;
+    }
 }
 
 
-/* =========================
-   LETTER
-========================= */
-
-.letter{
-
-    width:min(650px, 90%);
-
-    min-height:500px;
-
-    padding:50px;
-
-    background:#fffaf5;
-
-    border-radius:10px;
-
-    box-shadow:
-        0 30px 80px rgba(0,0,0,.25);
-
-    transform:
-        scale(.7)
-        rotate(-2deg);
-
-    transition:
-        transform 1.2s ease;
-
-}
-
-
-.letter-screen.active .letter{
-
-    transform:
-        scale(1)
-        rotate(0deg);
-
-}
-
-
-.letter h1{
-
-    margin-bottom:30px;
-
-    color:#d85c91;
-
-}
-
-
-.letter p{
-
-    line-height:1.8;
-
-    color:#444;
-
-}
-
-
-/* =========================
-   FINISH BUTTON
-========================= */
-
-#finishBtn{
-
-    margin-top:40px;
-
-    padding:14px 30px;
-
-    border:none;
-
-    border-radius:30px;
-
-    background:#ff76a8;
-
-    color:white;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-
-#finishBtn:hover{
-
-    transform:scale(1.08);
-
-}
-
-
-/* =========================
-   NEXT SCREEN
-========================= */
-
-.next-screen{
-
-    position:fixed;
-
-    inset:0;
-
-    opacity:0;
-
-    pointer-events:none;
-
-    transform:translateX(100%);
-
-    transition:
-        transform 1s ease,
-        opacity 1s ease;
-
-    color:white;
-
-    text-align:center;
-
-}
-
-
-.next-screen.active{
-
-    opacity:1;
-
-    pointer-events:auto;
-
-    transform:translateX(0);
-
-}
-
-
-.next-screen h1{
-
-    font-size:40px;
-
-    margin-bottom:20px;
-
-}
-
-
-.next-screen button{
-
-    margin-top:30px;
-
-    padding:15px 35px;
-
-    border:none;
-
-    border-radius:30px;
-
-    cursor:pointer;
-    
-
-
-}
-/* =========================
+/* ==================================================
    MUSIC PLAYER
-========================= */
+================================================== */
 
-.music-player{
+.music-player {
+    position: fixed;
 
-    position:fixed;
+    top: 20px;
+    left: 20px;
 
-    top:20px;
-    left:20px;
+    width: 280px;
 
-    width:280px;
+    padding: 12px 15px;
 
-    padding:12px 15px;
+    display: flex;
 
-    display:flex;
+    align-items: center;
 
-    align-items:center;
+    gap: 12px;
 
-    gap:12px;
+    background:
+        rgba(20, 10, 25, 0.75);
 
-    background:rgba(20, 10, 25, .75);
+    backdrop-filter: blur(15px);
 
-    backdrop-filter:blur(15px);
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
 
-    border:1px solid rgba(255,255,255,.15);
-
-    border-radius:16px;
+    border-radius: 16px;
 
     box-shadow:
-        0 10px 35px rgba(0,0,0,.25);
+        0 10px 35px rgba(0, 0, 0, 0.25);
 
-    color:white;
+    color: white;
 
-    z-index:9999;
+    z-index: 9999;
 
-    /* awalnya sembunyi */
+    opacity: 0;
 
-    opacity:0;
+    transform: translateX(-120px);
 
-    transform:translateX(-120px);
-
-    pointer-events:none;
+    pointer-events: none;
 
     transition:
-        opacity .6s ease,
-        transform .6s ease;
-
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
 
-/* =========================
-   PLAYER MUNCUL
-========================= */
+/* ==================================================
+   MUSIC PLAYER SHOW
+================================================== */
 
-.music-player.show{
+.music-player.show {
+    opacity: 1;
 
-    opacity:1;
-
-    transform:translateX(0);
-
+    transform: translateX(0);
 }
 
 
-/* =========================
-   COVER
-========================= */
+/* ==================================================
+   MUSIC COVER
+================================================== */
 
-.music-cover{
+.music-cover {
+    width: 48px;
+    height: 48px;
 
-    width:48px;
+    min-width: 48px;
 
-    height:48px;
-
-    min-width:48px;
-
-    border-radius:50%;
+    border-radius: 50%;
 
     background:
         linear-gradient(
@@ -479,161 +354,754 @@ body{
             #9d6cff
         );
 
-    display:flex;
+    display: flex;
 
-    align-items:center;
+    align-items: center;
 
-    justify-content:center;
+    justify-content: center;
 
-    font-size:25px;
-
+    font-size: 25px;
 }
 
 
-/* COVER MUTER */
+/* ==================================================
+   COVER ROTATION
+================================================== */
 
-.music-player.playing .music-cover{
-
+.music-player.playing .music-cover {
     animation:
         musicRotate 4s linear infinite;
-
 }
 
 
-@keyframes musicRotate{
+@keyframes musicRotate {
 
-    from{
-
-        transform:rotate(0deg);
-
+    from {
+        transform: rotate(0deg);
     }
 
-    to{
-
-        transform:rotate(360deg);
-
+    to {
+        transform: rotate(360deg);
     }
-
 }
 
 
-/* =========================
-   TEXT
-========================= */
+/* ==================================================
+   MUSIC INFO
+================================================== */
 
-.music-info{
+.music-info {
+    flex: 1;
 
-    flex:1;
-
-    overflow:hidden;
-
+    overflow: hidden;
 }
 
 
-.music-title{
+.music-title {
+    font-size: 14px;
 
-    font-size:14px;
+    font-weight: bold;
 
-    font-weight:bold;
-
-    white-space:nowrap;
-
+    white-space: nowrap;
 }
 
 
-.music-artist{
+.music-artist {
+    margin-top: 4px;
 
-    margin-top:4px;
+    font-size: 11px;
 
-    font-size:11px;
+    opacity: 0.6;
 
-    opacity:.6;
-
+    white-space: nowrap;
 }
 
 
-/* =========================
+/* ==================================================
    MUSIC BARS
-========================= */
+================================================== */
 
-.music-bars{
+.music-bars {
+    height: 35px;
 
-    height:35px;
+    display: flex;
 
-    display:flex;
+    align-items: center;
 
-    align-items:center;
-
-    gap:3px;
-
+    gap: 3px;
 }
 
 
-.music-bars span{
+.music-bars span {
+    display: block;
 
-    display:block;
+    width: 3px;
 
-    width:3px;
+    height: 10px;
 
-    height:10px;
+    background: white;
 
-    background:white;
-
-    border-radius:5px;
-
+    border-radius: 5px;
 }
 
 
-/* ANIMASI BAR */
+/* ==================================================
+   MUSIC BAR ANIMATION
+================================================== */
 
-.music-player.playing .music-bars span{
+.music-player.playing .music-bars span {
+    animation:
+        musicBar 0.8s ease-in-out infinite alternate;
+}
+
+
+.music-player.playing .music-bars span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+
+.music-player.playing .music-bars span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+
+.music-player.playing .music-bars span:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+
+.music-player.playing .music-bars span:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+
+@keyframes musicBar {
+
+    from {
+        height: 7px;
+    }
+
+    to {
+        height: 30px;
+    }
+}
+
+
+/* ==================================================
+   LETTER SCREEN
+================================================== */
+
+.letter-screen {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: scale(0.7);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    z-index: 20;
+}
+
+
+/* ==================================================
+   LETTER ACTIVE
+================================================== */
+
+.letter-screen.active {
+    opacity: 1;
+
+    pointer-events: auto;
+
+    transform: scale(1);
+}
+
+
+/* ==================================================
+   LETTER
+================================================== */
+
+.letter {
+    width: min(90%, 600px);
+
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    padding: 40px;
+
+    background:
+        rgba(255, 255, 255, 0.9);
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+
+.letter h1 {
+    margin-bottom: 25px;
+
+    color: #d85c91;
+
+    font-size: 32px;
+}
+
+
+.letter p {
+    color: #555;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* ==================================================
+   FINISH BUTTON
+================================================== */
+
+#finishBtn {
+    margin-top: 30px;
+
+    padding: 13px 28px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff78ad,
+            #9d6cff
+        );
+
+    color: white;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+#finishBtn:hover {
+    transform: scale(1.08);
+}
+
+
+/* ==================================================
+   MEMORY PAGE
+================================================== */
+
+.memory-screen {
+    position: fixed;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform: scale(0.8);
+
+    transition:
+        opacity 1s ease,
+        transform 1.2s ease;
+
+    z-index: 30;
+}
+
+
+/* ==================================================
+   MEMORY PAGE ACTIVE
+================================================== */
+
+.memory-screen.active {
+    opacity: 1;
+
+    pointer-events: auto;
+
+    transform: scale(1);
+}
+
+
+/* ==================================================
+   MEMORY WALL
+================================================== */
+
+.memory-wall {
+    position: relative;
+
+    width: 850px;
+
+    height: 600px;
+
+    max-width: 95vw;
+
+    max-height: 75vh;
+}
+
+
+/* ==================================================
+   MEMORY PHOTO
+================================================== */
+
+.memory-photo {
+    position: absolute;
+
+    width: 170px;
+
+    height: 210px;
+
+    object-fit: cover;
+
+    padding: 8px;
+
+    background: white;
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.2);
+
+    transition:
+        transform 0.4s ease;
+}
+
+
+/* ==================================================
+   PHOTO POSITIONS
+================================================== */
+
+.photo1 {
+    top: 20px;
+
+    left: 80px;
+
+    transform: rotate(-8deg);
 
     animation:
-        musicBar .8s ease-in-out infinite alternate;
-
+        float1 4s ease-in-out infinite;
 }
 
 
-.music-player.playing .music-bars span:nth-child(2){
+.photo2 {
+    top: 40px;
 
-    animation-delay:.15s;
+    right: 100px;
 
+    transform: rotate(7deg);
+
+    animation:
+        float2 5s ease-in-out infinite;
 }
 
 
-.music-player.playing .music-bars span:nth-child(3){
+.photo3 {
+    top: 220px;
 
-    animation-delay:.3s;
+    left: 0;
 
+    transform: rotate(-5deg);
+
+    animation:
+        float3 4.5s ease-in-out infinite;
 }
 
 
-.music-player.playing .music-bars span:nth-child(4){
+.photo4 {
+    top: 250px;
 
-    animation-delay:.45s;
+    right: 10px;
 
+    transform: rotate(8deg);
+
+    animation:
+        float4 5.5s ease-in-out infinite;
 }
 
 
-.music-player.playing .music-bars span:nth-child(5){
+.photo5 {
+    bottom: 0;
 
-    animation-delay:.6s;
+    left: 140px;
 
+    transform: rotate(6deg);
+
+    animation:
+        float2 4.8s ease-in-out infinite;
 }
 
 
-@keyframes musicBar{
+.photo6 {
+    bottom: 10px;
 
-    from{
+    right: 150px;
 
-        height:7px;
+    transform: rotate(-7deg);
 
+    animation:
+        float1 5.2s ease-in-out infinite;
+}
+
+
+.photo7 {
+    top: 130px;
+
+    left: 250px;
+
+    transform: rotate(-4deg);
+
+    animation:
+        float3 5s ease-in-out infinite;
+}
+
+
+.photo8 {
+    bottom: 80px;
+
+    right: 280px;
+
+    transform: rotate(5deg);
+
+    animation:
+        float4 4.2s ease-in-out infinite;
+}
+
+
+/* ==================================================
+   PHOTO FLOAT ANIMATIONS
+================================================== */
+
+@keyframes float1 {
+
+    0%,
+    100% {
+        margin-top: 0;
+
+        rotate: -2deg;
     }
 
-    to{
+    50% {
+        margin-top: -10px;
 
-        height:30px;
+        rotate: 2deg;
+    }
+}
 
+
+@keyframes float2 {
+
+    0%,
+    100% {
+        margin-top: 0;
+
+        rotate: 2deg;
     }
 
+    50% {
+        margin-top: 10px;
+
+        rotate: -2deg;
+    }
+}
+
+
+@keyframes float3 {
+
+    0%,
+    100% {
+        margin-top: 0;
+
+        rotate: -1deg;
+    }
+
+    50% {
+        margin-top: -8px;
+
+        rotate: 3deg;
+    }
+}
+
+
+@keyframes float4 {
+
+    0%,
+    100% {
+        margin-top: 0;
+
+        rotate: 2deg;
+    }
+
+    50% {
+        margin-top: 8px;
+
+        rotate: -3deg;
+    }
+}
+
+
+/* ==================================================
+   MEMORY TEXT
+================================================== */
+
+.memory-text {
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 300px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255, 255, 255, 0.2);
+
+    backdrop-filter: blur(12px);
+
+    color: white;
+
+    z-index: 10;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+.memory-text h1 {
+    font-size: 28px;
+
+    margin-bottom: 12px;
+}
+
+
+.memory-text p {
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ==================================================
+   NEXT BUTTON
+================================================== */
+
+.next-button {
+    position: absolute;
+
+    bottom: 30px;
+
+    right: 40px;
+
+    padding: 13px 25px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #d85c91;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.next-button:hover {
+    transform: scale(1.08);
+}
+
+
+/* ==================================================
+   MOBILE / HP
+================================================== */
+
+@media (max-width: 600px) {
+
+    /* ENVELOPE */
+
+    .envelope {
+        width: 280px;
+
+        height: 190px;
+    }
+
+
+    /* MUSIC PLAYER */
+
+    .music-player {
+        top: 12px;
+
+        left: 12px;
+
+        width: 240px;
+
+        padding: 10px;
+    }
+
+
+    .music-cover {
+        width: 40px;
+
+        height: 40px;
+
+        min-width: 40px;
+
+        font-size: 20px;
+    }
+
+
+    /* LETTER */
+
+    .letter {
+        width: 90%;
+
+        padding: 25px;
+    }
+
+
+    .letter h1 {
+        font-size: 25px;
+    }
+
+
+    /* MEMORY WALL */
+
+    .memory-wall {
+        width: 100vw;
+
+        height: 75vh;
+    }
+
+
+    .memory-photo {
+        width: 100px;
+
+        height: 125px;
+
+        padding: 5px;
+    }
+
+
+    .photo1 {
+        top: 10px;
+
+        left: 10px;
+    }
+
+
+    .photo2 {
+        top: 20px;
+
+        right: 10px;
+    }
+
+
+    .photo3 {
+        top: 180px;
+
+        left: 5px;
+    }
+
+
+    .photo4 {
+        top: 190px;
+
+        right: 5px;
+    }
+
+
+    .photo5 {
+        bottom: 10px;
+
+        left: 20px;
+    }
+
+
+    .photo6 {
+        bottom: 5px;
+
+        right: 20px;
+    }
+
+
+    .photo7 {
+        top: 90px;
+
+        left: 100px;
+    }
+
+
+    .photo8 {
+        bottom: 80px;
+
+        right: 100px;
+    }
+
+
+    /* MEMORY TEXT */
+
+    .memory-text {
+        width: 220px;
+
+        padding: 20px;
+    }
+
+
+    .memory-text h1 {
+        font-size: 21px;
+    }
+
+
+    .memory-text p {
+        font-size: 12px;
+    }
+
+
+    /* NEXT */
+
+    .next-button {
+        bottom: 20px;
+
+        right: 20px;
+    }
 }
