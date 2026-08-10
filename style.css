@@ -1076,6 +1076,18 @@ body {
 
         right: 100px;
     }
+    .photo9 {
+    top: 260px;
+    left: 340px;
+
+    transform: rotate(-6deg);
+
+    animation: float2 4.7s ease-in-out infinite;
+
+    z-index: 2;
+}
+  
+
 
 
     /* MEMORY TEXT */
