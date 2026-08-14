@@ -1,87 +1,107 @@
 /* ==================================================
-   AMBIL ELEMENT HTML
+   ELEMENT
 ================================================== */
 
-// Amplop
-const envelope = document.querySelector(".envelope");
+const envelope =
+    document.getElementById("envelope");
 
-// Halaman amplop
 const envelopeScreen =
-    document.getElementById("envelopeScreen") ||
-    document.querySelector(".envelope-screen");
+    document.getElementById("envelopeScreen");
 
-// Halaman surat
 const letterScreen =
     document.getElementById("letterScreen");
 
-// Tombol selesai surat
 const finishBtn =
     document.getElementById("finishBtn");
 
-// Halaman memory
 const memoryScreen =
     document.getElementById("memoryScreen");
 
-// Tombol lanjut
 const nextButton =
     document.getElementById("nextButton");
 
-// Audio
+const videoScreen =
+    document.getElementById("videoScreen");
+
+const videoIntro =
+    document.getElementById("videoIntro");
+
+const startVideoBtn =
+    document.getElementById("startVideoBtn");
+
+const videoWrapper =
+    document.getElementById("videoWrapper");
+
+const messageVideo =
+    document.getElementById("messageVideo");
+
+const videoNextBtn =
+    document.getElementById("videoNextBtn");
+
 const music =
     document.getElementById("music");
 
-// Music player
 const musicPlayer =
     document.getElementById("musicPlayer");
 
 
 /* ==================================================
-   KLIK AMPLOP
+   PAGE 1
+   AMPLOP
 ================================================== */
 
 if (envelope) {
 
     envelope.addEventListener("click", () => {
 
-        // Jangan bisa diklik dua kali
-        if (envelope.classList.contains("open")) {
+
+        /* ------------------------------------------
+           Cegah klik kedua
+        ------------------------------------------ */
+
+        if (
+            envelope.classList.contains("open")
+        ) {
             return;
         }
 
 
-        // ==========================================
-        // 1. BUKA AMPLOP
-        // ==========================================
+        /* ------------------------------------------
+           Buka amplop
+        ------------------------------------------ */
 
         envelope.classList.add("open");
 
 
-        // ==========================================
-        // 2. PUTAR MUSIK
-        // ==========================================
+        /* ------------------------------------------
+           Play musik
+        ------------------------------------------ */
 
         if (music) {
 
             music.play()
                 .then(() => {
 
-                    console.log("Musik berhasil diputar");
+                    console.log(
+                        "Raindance mulai 🎵"
+                    );
 
                 })
                 .catch((error) => {
 
                     console.log(
-                        "Musik tidak bisa diputar:",
+                        "Musik gagal diputar:",
                         error
                     );
 
                 });
+
         }
 
 
-        // ==========================================
-        // 3. MUNCULKAN MUSIC PLAYER
-        // ==========================================
+        /* ------------------------------------------
+           Music player muncul
+        ------------------------------------------ */
 
         if (musicPlayer) {
 
@@ -92,41 +112,38 @@ if (envelope) {
         }
 
 
-        // ==========================================
-        // 4. TUNGGU ANIMASI AMPLOP
-        // ==========================================
+        /* ------------------------------------------
+           Tunggu animasi amplop
+        ------------------------------------------ */
 
         setTimeout(() => {
 
-            // Hilangkan halaman amplop
             if (envelopeScreen) {
 
-                envelopeScreen.style.opacity = "0";
+                envelopeScreen.classList.add(
+                    "leaving"
+                );
 
-                envelopeScreen.style.pointerEvents =
-                    "none";
-
-                envelopeScreen.style.transform =
-                    "scale(1.2)";
             }
 
 
-            // ======================================
-            // 5. MUNCULKAN SURAT
-            // ======================================
+            /* --------------------------------------
+               Masuk ke surat
+            -------------------------------------- */
 
             setTimeout(() => {
 
                 if (letterScreen) {
 
-                    letterScreen.classList.add("active");
+                    letterScreen.classList.add(
+                        "active"
+                    );
 
                 }
 
             }, 500);
 
-
-        }, 1200);
+        }, 1000);
 
     });
 
@@ -134,28 +151,83 @@ if (envelope) {
 
 
 /* ==================================================
-   TOMBOL SELESAI SURAT
+   PAGE 2
+   SURAT → MEMORY
 ================================================== */
 
 if (finishBtn) {
 
     finishBtn.addEventListener("click", () => {
 
-        // Hilangkan surat
+
+        /* ------------------------------------------
+           Hilangkan surat
+        ------------------------------------------ */
+
         if (letterScreen) {
 
-            letterScreen.classList.remove("active");
+            letterScreen.classList.remove(
+                "active"
+            );
 
         }
 
 
-        // Tunggu animasi
+        /* ------------------------------------------
+           Munculkan memory
+        ------------------------------------------ */
+
         setTimeout(() => {
 
-            // Munculkan memory page
             if (memoryScreen) {
 
-                memoryScreen.classList.add("active");
+                memoryScreen.classList.add(
+                    "active"
+                );
+
+            }
+
+        }, 600);
+
+    });
+
+}
+
+
+/* ==================================================
+   PAGE 3
+   MEMORY → VIDEO
+================================================== */
+
+if (nextButton) {
+
+    nextButton.addEventListener("click", () => {
+
+
+        /* ------------------------------------------
+           Hilangkan memory
+        ------------------------------------------ */
+
+        if (memoryScreen) {
+
+            memoryScreen.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        /* ------------------------------------------
+           Munculkan video page
+        ------------------------------------------ */
+
+        setTimeout(() => {
+
+            if (videoScreen) {
+
+                videoScreen.classList.add(
+                    "active"
+                );
 
             }
 
@@ -167,79 +239,325 @@ if (finishBtn) {
 
 
 /* ==================================================
-   TOMBOL LANJUT
+   PAGE 4
+   START VIDEO
 ================================================== */
 
-if (nextButton) {
+if (startVideoBtn) {
 
-    nextButton.addEventListener("click", () => {
+    startVideoBtn.addEventListener(
+        "click",
+        async () => {
 
-        console.log("Tombol lanjut diklik");
 
-        // NANTI PAGE 3 KITA MASUKIN DI SINI
+            /* --------------------------------------
+               Sembunyikan intro
+            -------------------------------------- */
 
-    });
+            if (videoIntro) {
+
+                videoIntro.style.display =
+                    "none";
+
+            }
+
+
+            /* --------------------------------------
+               Tampilkan video
+            -------------------------------------- */
+
+            if (videoWrapper) {
+
+                videoWrapper.classList.add(
+                    "visible"
+                );
+
+            }
+
+
+            /* --------------------------------------
+               RESET VIDEO
+            -------------------------------------- */
+
+            if (messageVideo) {
+
+                messageVideo.currentTime = 0;
+
+            }
+
+
+            /* --------------------------------------
+               MATIKAN MUSIK SEBELUM VIDEO
+            -------------------------------------- */
+
+            if (music) {
+
+                music.pause();
+
+            }
+
+
+            /* --------------------------------------
+               Hentikan animasi player
+            -------------------------------------- */
+
+            if (musicPlayer) {
+
+                musicPlayer.classList.remove(
+                    "playing"
+                );
+
+            }
+
+
+            /* --------------------------------------
+               PUTAR VIDEO
+            -------------------------------------- */
+
+            if (messageVideo) {
+
+                try {
+
+                    await messageVideo.play();
+
+                    console.log(
+                        "Video mulai 🎬"
+                    );
+
+                }
+
+                catch (error) {
+
+                    console.log(
+                        "Video belum bisa autoplay:",
+                        error
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   VIDEO PLAY
+================================================== */
+
+if (messageVideo) {
+
+    messageVideo.addEventListener(
+        "play",
+        () => {
+
+
+            /* --------------------------------------
+               Pastikan musik mati
+            -------------------------------------- */
+
+            if (music) {
+
+                music.pause();
+
+            }
+
+
+            /* --------------------------------------
+               Animasi status
+            -------------------------------------- */
+
+            if (videoWrapper) {
+
+                videoWrapper.classList.add(
+                    "playing"
+                );
+
+            }
+
+
+            console.log(
+                "Video sedang diputar 🎬"
+            );
+
+        }
+    );
+
+
+    /* ==============================================
+       VIDEO PAUSE
+    ============================================== */
+
+    messageVideo.addEventListener(
+        "pause",
+        () => {
+
+            if (videoWrapper) {
+
+                videoWrapper.classList.remove(
+                    "playing"
+                );
+
+            }
+
+        }
+    );
+
+
+    /* ==============================================
+       VIDEO SELESAI
+    ============================================== */
+
+    messageVideo.addEventListener(
+        "ended",
+        () => {
+
+
+            console.log(
+                "Video selesai ❤️"
+            );
+
+
+            /* --------------------------------------
+               Hilangkan status
+            -------------------------------------- */
+
+            if (videoWrapper) {
+
+                videoWrapper.classList.remove(
+                    "playing"
+                );
+
+            }
+
+
+            /* --------------------------------------
+               PUTAR LAGI RAINDANCE
+            -------------------------------------- */
+
+            if (music) {
+
+                music.play()
+                    .then(() => {
+
+                        console.log(
+                            "Raindance lanjut lagi 🎵"
+                        );
+
+
+                        if (musicPlayer) {
+
+                            musicPlayer.classList.add(
+                                "playing"
+                            );
+
+                        }
+
+                    })
+                    .catch((error) => {
+
+                        console.log(
+                            "Musik tidak bisa dilanjutkan:",
+                            error
+                        );
+
+                    });
+
+            }
+
+
+            /* --------------------------------------
+               MUNCULKAN TOMBOL LANJUT
+            -------------------------------------- */
+
+            if (videoNextBtn) {
+
+                videoNextBtn.classList.add(
+                    "show"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==================================================
+   VIDEO NEXT
+================================================== */
+
+if (videoNextBtn) {
+
+    videoNextBtn.addEventListener(
+        "click",
+        () => {
+
+            console.log(
+                "Page berikutnya nanti di sini 🚀"
+            );
+
+        }
+    );
 
 }
 
 
 /* ==================================================
    MUSIC PLAYER
+   CLICK = PLAY / PAUSE
 ================================================== */
 
 if (musicPlayer && music) {
 
-    musicPlayer.addEventListener("click", () => {
+    musicPlayer.addEventListener(
+        "click",
+        () => {
 
-        // Kalau musik sedang main
-        if (!music.paused) {
 
-            music.pause();
+            /* --------------------------------------
+               Kalau sedang play
+            -------------------------------------- */
 
-            musicPlayer.classList.remove("playing");
+            if (!music.paused) {
 
-        }
+                music.pause();
 
-        // Kalau musik sedang berhenti
-        else {
+                musicPlayer.classList.remove(
+                    "playing"
+                );
+
+                return;
+
+            }
+
+
+            /* --------------------------------------
+               Kalau sedang pause
+            -------------------------------------- */
 
             music.play()
                 .then(() => {
 
-                    musicPlayer.classList.add("playing");
+                    musicPlayer.classList.add(
+                        "playing"
+                    );
 
                 })
                 .catch((error) => {
 
                     console.log(
-                        "Musik tidak bisa diputar:",
+                        "Musik gagal diputar:",
                         error
                     );
 
                 });
 
         }
-
-    });
-
-}
-
-
-/* ==================================================
-   SAAT MUSIK SELESAI
-================================================== */
-
-if (music) {
-
-    music.addEventListener("ended", () => {
-
-        if (musicPlayer) {
-
-            musicPlayer.classList.remove("playing");
-
-        }
-
-    });
+    );
 
 }
 
@@ -248,4 +566,6 @@ if (music) {
    DEBUG
 ================================================== */
 
-console.log("Website berhasil dijalankan 🚀");
+console.log(
+    "Website siap 🚀"
+);

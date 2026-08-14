@@ -5,8 +5,9 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
     <title>For You ❤️</title>
 
@@ -18,9 +19,9 @@
 <body>
 
 
-    <!-- =================================
-         AUDIO
-    ================================== -->
+    <!-- =====================================
+         AUDIO BACKGROUND
+    ====================================== -->
 
     <audio id="music" loop>
 
@@ -32,9 +33,9 @@
 
 
 
-    <!-- =================================
+    <!-- =====================================
          MUSIC PLAYER
-    ================================== -->
+    ====================================== -->
 
     <div
         class="music-player"
@@ -72,12 +73,13 @@
 
 
 
-    <!-- =================================
-         PAGE 1 - AMPLOP
-    ================================== -->
+    <!-- =====================================
+         PAGE 1
+         AMPLOP
+    ====================================== -->
 
     <section
-        class="screen envelope-screen"
+        class="screen envelope-screen active"
         id="envelopeScreen">
 
 
@@ -86,22 +88,14 @@
             id="envelope">
 
 
-            <!-- FLAP AMPLOP -->
-
             <div class="envelope-top"></div>
 
 
-            <!-- BADAN AMPLOP -->
-
             <div class="envelope-body">
-
-
-                <!-- KERTAS -->
 
                 <div class="paper">
                     💌
                 </div>
-
 
             </div>
 
@@ -118,9 +112,10 @@
 
 
 
-    <!-- =================================
-         PAGE 1.5 - SURAT
-    ================================== -->
+    <!-- =====================================
+         PAGE 2
+         SURAT
+    ====================================== -->
 
     <section
         class="screen letter-screen"
@@ -158,8 +153,11 @@
             </p>
 
 
-            <button id="finishBtn">
+            <button
+                id="finishBtn">
+
                 Selesai ❤️
+
             </button>
 
 
@@ -170,9 +168,10 @@
 
 
 
-    <!-- =================================
-         PAGE 2 - MEMORY WALL
-    ================================== -->
+    <!-- =====================================
+         PAGE 3
+         MEMORY WALL
+    ====================================== -->
 
     <section
         class="screen memory-screen"
@@ -182,73 +181,51 @@
         <div class="memory-wall">
 
 
-            <!-- FOTO 1 -->
-
             <img
                 src="images/foto1.jpg"
                 class="memory-photo photo1">
 
-
-            <!-- FOTO 2 -->
 
             <img
                 src="images/foto2.jpg"
                 class="memory-photo photo2">
 
 
-            <!-- FOTO 3 -->
-
             <img
                 src="images/foto3.jpg"
                 class="memory-photo photo3">
 
-
-            <!-- FOTO 4 -->
 
             <img
                 src="images/foto4.jpg"
                 class="memory-photo photo4">
 
 
-            <!-- FOTO 5 -->
-
             <img
                 src="images/foto5.jpg"
                 class="memory-photo photo5">
 
-
-            <!-- FOTO 6 -->
 
             <img
                 src="images/foto6.jpg"
                 class="memory-photo photo6">
 
 
-            <!-- FOTO 7 -->
-
             <img
                 src="images/foto7.jpg"
                 class="memory-photo photo7">
 
-
-            <!-- FOTO 8 -->
 
             <img
                 src="images/foto8.jpg"
                 class="memory-photo photo8">
 
 
-
-            <!-- =========================
-                 TEXT TENGAH
-            ========================== -->
-
             <div class="memory-text">
 
                 <h1>
                     Our Little Memories
                 </h1>
-
 
                 <p>
                     beberapa momen yang mungkin
@@ -260,11 +237,6 @@
 
         </div>
 
-
-
-        <!-- =========================
-             TOMBOL LANJUT
-        ========================== -->
 
         <button
             class="next-button"
@@ -279,9 +251,108 @@
 
 
 
-    <!-- =================================
+    <!-- =====================================
+         PAGE 4
+         VIDEO
+    ====================================== -->
+
+    <section
+        class="screen video-screen"
+        id="videoScreen">
+
+
+        <div class="video-container">
+
+
+            <!-- INTRO -->
+
+            <div
+                class="video-intro"
+                id="videoIntro">
+
+                <div class="video-icon">
+                    🎬
+                </div>
+
+
+                <h1>
+                    Satu hal lagi...
+                </h1>
+
+
+                <p>
+                    Ada sesuatu yang mau aku
+                    sampaikan buat kamu.
+                </p>
+
+
+                <button
+                    id="startVideoBtn"
+                    class="start-video-button">
+
+                    ▶ Mulai Video
+
+                </button>
+
+            </div>
+
+
+
+            <!-- VIDEO -->
+
+            <div
+                class="video-wrapper"
+                id="videoWrapper">
+
+
+                <video
+                    id="messageVideo"
+                    playsinline>
+
+                    <source
+                        src="video/pesan.mp4"
+                        type="video/mp4">
+
+                    Browser kamu tidak
+                    mendukung video.
+
+                </video>
+
+
+                <div
+                    class="video-status"
+                    id="videoStatus">
+
+                    ❤️
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- VIDEO SELESAI -->
+
+            <button
+                id="videoNextBtn"
+                class="video-next-button">
+
+                Lanjut →
+
+            </button>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================
          JAVASCRIPT
-    ================================== -->
+    ====================================== -->
 
     <script src="script.js"></script>
 

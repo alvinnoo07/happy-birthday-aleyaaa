@@ -13,33 +13,38 @@
    BODY
 ================================================== */
 
+html,
 body {
     width: 100%;
-    height: 100vh;
-
-    overflow: hidden;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: linear-gradient(
-        -45deg,
-        #ff9ecb,
-        #c99cff,
-        #ffc9e2,
-        #b388ff
-    );
-
-    background-size: 400% 400%;
-
-    animation: bgMove 12s ease infinite;
+    height: 100%;
 }
 
 
-/* ==================================================
-   BACKGROUND ANIMATION
-================================================== */
+body {
+    overflow: hidden;
 
-@keyframes bgMove {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            -45deg,
+            #ff9ecb,
+            #c99cff,
+            #ffc9e2,
+            #b388ff
+        );
+
+    background-size: 400% 400%;
+
+    animation:
+        backgroundMove 12s ease infinite;
+}
+
+
+@keyframes backgroundMove {
 
     0% {
         background-position: 0% 50%;
@@ -56,7 +61,7 @@ body {
 
 
 /* ==================================================
-   GENERAL SCREEN
+   SCREEN SYSTEM
 ================================================== */
 
 .screen {
@@ -66,11 +71,31 @@ body {
 
     width: 100%;
     height: 100vh;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+
+.screen.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
 }
 
 
 /* ==================================================
-   ENVELOPE SCREEN
+   PAGE 1
+   ENVELOPE
 ================================================== */
 
 .envelope-screen {
@@ -81,16 +106,8 @@ body {
     justify-content: center;
 
     align-items: center;
-
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
 }
 
-
-/* ==================================================
-   ENVELOPE
-================================================== */
 
 .envelope {
     position: relative;
@@ -98,28 +115,75 @@ body {
     width: 320px;
     height: 220px;
 
-    background: #ff84ae;
-
-    border-radius: 12px;
-
     cursor: pointer;
 
-    overflow: hidden;
+    border-radius: 14px;
 
-    box-shadow:
-        0 0 30px rgba(255, 255, 255, 0.5),
-        0 25px 50px rgba(0, 0, 0, 0.2);
+    animation:
+        envelopeFloat 3s ease-in-out infinite;
 
-    animation: floating 3s ease-in-out infinite;
+    filter:
+        drop-shadow(
+            0 25px 35px
+            rgba(0, 0, 0, 0.22)
+        );
 
     transition:
-        transform 0.6s ease;
+        transform 0.8s ease,
+        opacity 0.8s ease;
 }
 
 
-/* ==================================================
-   ENVELOPE TOP / FLAP
-================================================== */
+/* ================================================
+   BADAN AMPLOP
+================================================ */
+
+.envelope-body {
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff94ba,
+            #ff6e9f
+        );
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+
+/* ================================================
+   BAGIAN DALAM
+================================================ */
+
+.envelope-body::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            transparent 49%,
+            rgba(255, 255, 255, 0.18) 50%,
+            transparent 51%
+        );
+
+    opacity: 0.8;
+}
+
+
+/* ================================================
+   FLAP
+================================================ */
 
 .envelope-top {
     position: absolute;
@@ -130,59 +194,51 @@ body {
     width: 100%;
     height: 100%;
 
-    background: #ff6b9f;
+    background:
+        linear-gradient(
+            135deg,
+            #ff78a9,
+            #ff5f95
+        );
 
-    clip-path: polygon(
-        0 0,
-        50% 55%,
-        100% 0
-    );
+    clip-path:
+        polygon(
+            0 0,
+            50% 56%,
+            100% 0
+        );
 
-    transform-origin: top;
+    transform-origin: top center;
 
     transition:
-        transform 0.8s ease;
+        transform 1s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 
     z-index: 4;
 }
 
 
-/* ==================================================
-   ENVELOPE BODY
-================================================== */
-
-.envelope-body {
-    position: absolute;
-
-    inset: 0;
-
-    background: #ff84ae;
-
-    z-index: 2;
-}
-
-
-/* ==================================================
-   PAPER DI DALAM
-================================================== */
+/* ================================================
+   KERTAS
+================================================ */
 
 .paper {
     position: absolute;
 
     left: 50%;
 
-    bottom: 10px;
+    bottom: 12px;
+
+    width: 82%;
+    height: 165px;
 
     transform:
         translateX(-50%)
         translateY(120px);
-
-    width: 85%;
-    height: 170px;
-
-    background: white;
-
-    border-radius: 10px;
 
     display: flex;
 
@@ -190,61 +246,93 @@ body {
 
     align-items: center;
 
+    background: white;
+
+    border-radius: 10px;
+
     font-size: 40px;
 
-    transition:
-        transform 1s ease;
-
     box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.15);
+        0 10px 25px
+        rgba(0, 0, 0, 0.15);
+
+    transition:
+        transform 1s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
 
     z-index: 3;
 }
 
 
-/* ==================================================
-   ENVELOPE OPEN
-================================================== */
+/* ================================================
+   AMPLOP OPEN
+================================================ */
 
 .envelope.open {
-    transform: scale(1.05);
+    animation: none;
+
+    transform: scale(1.04);
 }
 
 
 .envelope.open .envelope-top {
-    transform: rotateX(180deg);
+    transform:
+        rotateX(180deg);
 }
 
 
 .envelope.open .paper {
     transform:
         translateX(-50%)
-        translateY(-20px);
+        translateY(-18px);
 }
 
 
-/* ==================================================
-   FLOATING ENVELOPE
-================================================== */
+/* ================================================
+   AMPLOP EXIT
+================================================ */
 
-@keyframes floating {
+.envelope-screen.leaving .envelope {
+    transform: scale(1.04);
+
+    opacity: 0;
+}
+
+
+.envelope-screen.leaving .hint {
+    opacity: 0;
+}
+
+
+/* ================================================
+   FLOAT
+================================================ */
+
+@keyframes envelopeFloat {
 
     0% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 
     50% {
-        transform: translateY(-10px);
+        transform:
+            translateY(-10px);
     }
 
     100% {
-        transform: translateY(0);
+        transform:
+            translateY(0);
     }
 }
 
 
 /* ==================================================
-   HINT TEXT
+   HINT
 ================================================== */
 
 .hint {
@@ -255,23 +343,11 @@ body {
     font-size: 18px;
 
     text-shadow:
-        0 2px 5px rgba(0, 0, 0, 0.2);
+        0 3px 8px
+        rgba(0, 0, 0, 0.2);
 
-    animation:
-        hintPulse 2s ease-in-out infinite;
-}
-
-
-@keyframes hintPulse {
-
-    0%,
-    100% {
-        opacity: 0.7;
-    }
-
-    50% {
-        opacity: 1;
-    }
+    transition:
+        opacity 0.5s ease;
 }
 
 
@@ -296,25 +372,29 @@ body {
     gap: 12px;
 
     background:
-        rgba(20, 10, 25, 0.75);
+        rgba(20, 10, 25, 0.78);
 
-    backdrop-filter: blur(15px);
+    backdrop-filter:
+        blur(16px);
 
     border:
-        1px solid rgba(255, 255, 255, 0.15);
+        1px solid
+        rgba(255, 255, 255, 0.15);
 
     border-radius: 16px;
 
-    box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.25);
-
     color: white;
+
+    box-shadow:
+        0 12px 35px
+        rgba(0, 0, 0, 0.25);
 
     z-index: 9999;
 
     opacity: 0;
 
-    transform: translateX(-120px);
+    transform:
+        translateX(-120px);
 
     pointer-events: none;
 
@@ -324,26 +404,27 @@ body {
 }
 
 
-/* ==================================================
-   MUSIC PLAYER SHOW
-================================================== */
-
 .music-player.show {
     opacity: 1;
 
-    transform: translateX(0);
+    transform:
+        translateX(0);
+
+    pointer-events: auto;
 }
 
-
-/* ==================================================
-   MUSIC COVER
-================================================== */
 
 .music-cover {
     width: 48px;
     height: 48px;
 
     min-width: 48px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
 
     border-radius: 50%;
 
@@ -354,21 +435,12 @@ body {
             #9d6cff
         );
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 25px;
+    font-size: 24px;
 }
 
 
-/* ==================================================
-   COVER ROTATION
-================================================== */
-
-.music-player.playing .music-cover {
+.music-player.playing
+.music-cover {
     animation:
         musicRotate 4s linear infinite;
 }
@@ -377,18 +449,16 @@ body {
 @keyframes musicRotate {
 
     from {
-        transform: rotate(0deg);
+        transform:
+            rotate(0deg);
     }
 
     to {
-        transform: rotate(360deg);
+        transform:
+            rotate(360deg);
     }
 }
 
-
-/* ==================================================
-   MUSIC INFO
-================================================== */
 
 .music-info {
     flex: 1;
@@ -401,8 +471,6 @@ body {
     font-size: 14px;
 
     font-weight: bold;
-
-    white-space: nowrap;
 }
 
 
@@ -412,14 +480,8 @@ body {
     font-size: 11px;
 
     opacity: 0.6;
-
-    white-space: nowrap;
 }
 
-
-/* ==================================================
-   MUSIC BARS
-================================================== */
 
 .music-bars {
     height: 35px;
@@ -433,11 +495,9 @@ body {
 
 
 .music-bars span {
-    display: block;
-
     width: 3px;
 
-    height: 10px;
+    height: 8px;
 
     background: white;
 
@@ -445,32 +505,34 @@ body {
 }
 
 
-/* ==================================================
-   MUSIC BAR ANIMATION
-================================================== */
-
-.music-player.playing .music-bars span {
+.music-player.playing
+.music-bars span {
     animation:
-        musicBar 0.8s ease-in-out infinite alternate;
+        musicBar 0.8s
+        ease-in-out infinite alternate;
 }
 
 
-.music-player.playing .music-bars span:nth-child(2) {
+.music-player.playing
+.music-bars span:nth-child(2) {
     animation-delay: 0.15s;
 }
 
 
-.music-player.playing .music-bars span:nth-child(3) {
+.music-player.playing
+.music-bars span:nth-child(3) {
     animation-delay: 0.3s;
 }
 
 
-.music-player.playing .music-bars span:nth-child(4) {
+.music-player.playing
+.music-bars span:nth-child(4) {
     animation-delay: 0.45s;
 }
 
 
-.music-player.playing .music-bars span:nth-child(5) {
+.music-player.playing
+.music-bars span:nth-child(5) {
     animation-delay: 0.6s;
 }
 
@@ -488,7 +550,8 @@ body {
 
 
 /* ==================================================
-   LETTER SCREEN
+   PAGE 2
+   LETTER
 ================================================== */
 
 .letter-screen {
@@ -498,39 +561,15 @@ body {
 
     align-items: center;
 
-    opacity: 0;
-
-    pointer-events: none;
-
-    transform: scale(0.7);
-
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
-
-    z-index: 20;
+    padding: 20px;
 }
 
-
-/* ==================================================
-   LETTER ACTIVE
-================================================== */
-
-.letter-screen.active {
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transform: scale(1);
-}
-
-
-/* ==================================================
-   LETTER
-================================================== */
 
 .letter {
-    width: min(90%, 600px);
+    width: min(
+        90%,
+        600px
+    );
 
     max-height: 80vh;
 
@@ -538,15 +577,39 @@ body {
 
     padding: 40px;
 
-    background:
-        rgba(255, 255, 255, 0.9);
-
-    border-radius: 20px;
-
     text-align: center;
 
+    background:
+        rgba(255, 255, 255, 0.94);
+
+    border-radius: 22px;
+
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.2);
+        0 25px 60px
+        rgba(0, 0, 0, 0.2);
+
+    animation:
+        letterAppear 0.8s ease;
+}
+
+
+@keyframes letterAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
 }
 
 
@@ -567,10 +630,6 @@ body {
     line-height: 1.8;
 }
 
-
-/* ==================================================
-   FINISH BUTTON
-================================================== */
 
 #finishBtn {
     margin-top: 30px;
@@ -595,7 +654,8 @@ body {
     cursor: pointer;
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.15);
+        0 10px 25px
+        rgba(0, 0, 0, 0.15);
 
     transition:
         transform 0.3s ease;
@@ -603,78 +663,40 @@ body {
 
 
 #finishBtn:hover {
-    transform: scale(1.08);
+    transform:
+        scale(1.08);
 }
 
 
 /* ==================================================
-   MEMORY PAGE
+   PAGE 3
+   MEMORY WALL
 ================================================== */
 
 .memory-screen {
-    position: fixed;
-
-    inset: 0;
-
     display: flex;
 
     justify-content: center;
 
     align-items: center;
-
-    opacity: 0;
-
-    pointer-events: none;
-
-    transform: scale(0.8);
-
-    transition:
-        opacity 1s ease,
-        transform 1.2s ease;
-
-    z-index: 30;
 }
 
-
-/* ==================================================
-   MEMORY PAGE ACTIVE
-================================================== */
-
-.memory-screen.active {
-    opacity: 1;
-
-    pointer-events: auto;
-
-    transform: scale(1);
-}
-
-
-/* ==================================================
-   MEMORY WALL
-================================================== */
 
 .memory-wall {
     position: relative;
 
     width: 850px;
-
     height: 600px;
 
     max-width: 95vw;
-
     max-height: 75vh;
 }
 
-
-/* ==================================================
-   MEMORY PHOTO
-================================================== */
 
 .memory-photo {
     position: absolute;
 
     width: 170px;
-
     height: 210px;
 
     object-fit: cover;
@@ -684,225 +706,216 @@ body {
     background: white;
 
     box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.2);
-
-    transition:
-        transform 0.4s ease;
+        0 15px 30px
+        rgba(0, 0, 0, 0.2);
 }
 
 
-/* ==================================================
-   PHOTO POSITIONS
-================================================== */
+/* ================================================
+   FOTO POSITIONS
+================================================ */
 
 .photo1 {
     top: 20px;
-
     left: 80px;
 
-    transform: rotate(-8deg);
+    transform:
+        rotate(-8deg);
 
     animation:
-        float1 4s ease-in-out infinite;
+        photoFloat1
+        4s ease-in-out infinite;
 }
 
 
 .photo2 {
     top: 40px;
-
     right: 100px;
 
-    transform: rotate(7deg);
+    transform:
+        rotate(7deg);
 
     animation:
-        float2 5s ease-in-out infinite;
+        photoFloat2
+        5s ease-in-out infinite;
 }
 
 
 .photo3 {
     top: 220px;
-
     left: 0;
 
-    transform: rotate(-5deg);
+    transform:
+        rotate(-5deg);
 
     animation:
-        float3 4.5s ease-in-out infinite;
+        photoFloat3
+        4.5s ease-in-out infinite;
 }
 
 
 .photo4 {
     top: 250px;
-
     right: 10px;
 
-    transform: rotate(8deg);
+    transform:
+        rotate(8deg);
 
     animation:
-        float4 5.5s ease-in-out infinite;
+        photoFloat4
+        5.5s ease-in-out infinite;
 }
 
 
 .photo5 {
     bottom: 0;
-
     left: 140px;
 
-    transform: rotate(6deg);
+    transform:
+        rotate(6deg);
 
     animation:
-        float2 4.8s ease-in-out infinite;
+        photoFloat2
+        4.8s ease-in-out infinite;
 }
 
 
 .photo6 {
     bottom: 10px;
-
     right: 150px;
 
-    transform: rotate(-7deg);
+    transform:
+        rotate(-7deg);
 
     animation:
-        float1 5.2s ease-in-out infinite;
+        photoFloat1
+        5.2s ease-in-out infinite;
 }
 
 
 .photo7 {
     top: 130px;
-
     left: 250px;
 
-    transform: rotate(-4deg);
+    transform:
+        rotate(-4deg);
 
     animation:
-        float3 5s ease-in-out infinite;
+        photoFloat3
+        5s ease-in-out infinite;
 }
 
 
 .photo8 {
     bottom: 80px;
-
     right: 280px;
 
-    transform: rotate(5deg);
+    transform:
+        rotate(5deg);
 
     animation:
-        float4 4.2s ease-in-out infinite;
+        photoFloat4
+        4.2s ease-in-out infinite;
 }
 
 
-/* ==================================================
-   PHOTO FLOAT ANIMATIONS
-================================================== */
+/* ================================================
+   PHOTO ANIMATIONS
+================================================ */
 
-@keyframes float1 {
+@keyframes photoFloat1 {
 
     0%,
     100% {
         margin-top: 0;
-
-        rotate: -2deg;
     }
 
     50% {
         margin-top: -10px;
-
-        rotate: 2deg;
     }
 }
 
 
-@keyframes float2 {
+@keyframes photoFloat2 {
 
     0%,
     100% {
         margin-top: 0;
-
-        rotate: 2deg;
     }
 
     50% {
         margin-top: 10px;
-
-        rotate: -2deg;
     }
 }
 
 
-@keyframes float3 {
+@keyframes photoFloat3 {
 
     0%,
     100% {
         margin-top: 0;
-
-        rotate: -1deg;
     }
 
     50% {
         margin-top: -8px;
-
-        rotate: 3deg;
     }
 }
 
 
-@keyframes float4 {
+@keyframes photoFloat4 {
 
     0%,
     100% {
         margin-top: 0;
-
-        rotate: 2deg;
     }
 
     50% {
         margin-top: 8px;
-
-        rotate: -3deg;
     }
 }
 
 
-/* ==================================================
+/* ================================================
    MEMORY TEXT
-================================================== */
+================================================ */
 
 .memory-text {
     position: absolute;
 
     top: 50%;
-
     left: 50%;
-
-    transform:
-        translate(-50%, -50%);
 
     width: 300px;
 
     padding: 30px;
 
+    transform:
+        translate(-50%, -50%);
+
     text-align: center;
 
-    border-radius: 20px;
+    color: white;
 
     background:
         rgba(255, 255, 255, 0.2);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter:
+        blur(12px);
 
-    color: white;
+    border-radius: 20px;
 
     z-index: 10;
 
     box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.15);
+        0 15px 40px
+        rgba(0, 0, 0, 0.15);
 }
 
 
 .memory-text h1 {
-    font-size: 28px;
-
     margin-bottom: 12px;
+
+    font-size: 28px;
 }
 
 
@@ -913,16 +926,11 @@ body {
 }
 
 
-/* ==================================================
-   NEXT BUTTON
-================================================== */
-
 .next-button {
     position: absolute;
 
-    bottom: 30px;
-
     right: 40px;
+    bottom: 30px;
 
     padding: 13px 25px;
 
@@ -939,7 +947,8 @@ body {
     cursor: pointer;
 
     box-shadow:
-        0 10px 25px rgba(0, 0, 0, 0.15);
+        0 10px 25px
+        rgba(0, 0, 0, 0.15);
 
     transition:
         transform 0.3s ease;
@@ -947,17 +956,310 @@ body {
 
 
 .next-button:hover {
-    transform: scale(1.08);
+    transform:
+        scale(1.08);
 }
 
 
 /* ==================================================
-   MOBILE / HP
+   PAGE 4
+   VIDEO
+================================================== */
+
+.video-screen {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+}
+
+
+.video-container {
+    width: min(
+        94%,
+        650px
+    );
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    text-align: center;
+
+    color: white;
+}
+
+
+/* ================================================
+   VIDEO INTRO
+================================================ */
+
+.video-intro {
+    animation:
+        videoIntroAppear
+        1s ease;
+}
+
+
+.video-icon {
+    margin-bottom: 15px;
+
+    font-size: 45px;
+}
+
+
+.video-intro h1 {
+    margin-bottom: 10px;
+
+    font-size: 36px;
+
+    text-shadow:
+        0 4px 15px
+        rgba(0, 0, 0, 0.2);
+}
+
+
+.video-intro p {
+    margin-bottom: 25px;
+
+    font-size: 16px;
+
+    opacity: 0.9;
+}
+
+
+@keyframes videoIntroAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* ================================================
+   START VIDEO BUTTON
+================================================ */
+
+.start-video-button {
+    padding: 14px 30px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #d85c91;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.2);
+
+    transition:
+        transform 0.3s ease;
+}
+
+
+.start-video-button:hover {
+    transform:
+        scale(1.07);
+}
+
+
+/* ================================================
+   VIDEO WRAPPER
+================================================ */
+
+.video-wrapper {
+    position: relative;
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    width: 100%;
+}
+
+
+.video-wrapper.visible {
+    display: flex;
+
+    animation:
+        videoAppear
+        0.8s ease;
+}
+
+
+@keyframes videoAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* ================================================
+   ACTUAL VIDEO
+   VERTICAL FRIENDLY
+================================================ */
+
+#messageVideo {
+    display: block;
+
+    width: auto;
+
+    height: min(
+        70vh,
+        720px
+    );
+
+    max-width: 90vw;
+
+    aspect-ratio: 9 / 16;
+
+    object-fit: contain;
+
+    background: black;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 25px 60px
+        rgba(0, 0, 0, 0.3);
+}
+
+
+/* ================================================
+   VIDEO STATUS
+================================================ */
+
+.video-status {
+    position: absolute;
+
+    top: 15px;
+    right: 15px;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        rgba(0, 0, 0, 0.45);
+
+    border-radius: 50%;
+
+    opacity: 0;
+
+    transition:
+        opacity 0.3s ease;
+}
+
+
+.video-wrapper.playing
+.video-status {
+    opacity: 1;
+}
+
+
+/* ================================================
+   VIDEO NEXT BUTTON
+================================================ */
+
+.video-next-button {
+    margin-top: 25px;
+
+    padding: 13px 28px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #d85c91;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+
+.video-next-button.show {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+    pointer-events: auto;
+}
+
+
+.video-next-button:hover {
+    transform:
+        translateY(0)
+        scale(1.08);
+}
+
+
+/* ==================================================
+   MOBILE
 ================================================== */
 
 @media (max-width: 600px) {
 
-    /* ENVELOPE */
+
+    /* ==============================================
+       AMPLOP
+    ============================================== */
 
     .envelope {
         width: 280px;
@@ -966,7 +1268,9 @@ body {
     }
 
 
-    /* MUSIC PLAYER */
+    /* ==============================================
+       MUSIC PLAYER
+    ============================================== */
 
     .music-player {
         top: 12px;
@@ -981,7 +1285,6 @@ body {
 
     .music-cover {
         width: 40px;
-
         height: 40px;
 
         min-width: 40px;
@@ -990,10 +1293,12 @@ body {
     }
 
 
-    /* LETTER */
+    /* ==============================================
+       LETTER
+    ============================================== */
 
     .letter {
-        width: 90%;
+        width: 92%;
 
         padding: 25px;
     }
@@ -1004,7 +1309,9 @@ body {
     }
 
 
-    /* MEMORY WALL */
+    /* ==============================================
+       MEMORY
+    ============================================== */
 
     .memory-wall {
         width: 100vw;
@@ -1024,73 +1331,51 @@ body {
 
     .photo1 {
         top: 10px;
-
-        left: 10px;
+        left: 8px;
     }
 
 
     .photo2 {
         top: 20px;
-
-        right: 10px;
+        right: 8px;
     }
 
 
     .photo3 {
         top: 180px;
-
         left: 5px;
     }
 
 
     .photo4 {
         top: 190px;
-
         right: 5px;
     }
 
 
     .photo5 {
         bottom: 10px;
-
         left: 20px;
     }
 
 
     .photo6 {
         bottom: 5px;
-
         right: 20px;
     }
 
 
     .photo7 {
         top: 90px;
-
         left: 100px;
     }
 
 
     .photo8 {
         bottom: 80px;
-
         right: 100px;
     }
-    .photo9 {
-    top: 260px;
-    left: 340px;
 
-    transform: rotate(-6deg);
-
-    animation: float2 4.7s ease-in-out infinite;
-
-    z-index: 2;
-}
-  
-
-
-
-    /* MEMORY TEXT */
 
     .memory-text {
         width: 220px;
@@ -1109,11 +1394,38 @@ body {
     }
 
 
-    /* NEXT */
-
     .next-button {
-        bottom: 20px;
-
         right: 20px;
+
+        bottom: 20px;
     }
+
+
+    /* ==============================================
+       VIDEO
+    ============================================== */
+
+    .video-container {
+        width: 95%;
+    }
+
+
+    .video-intro h1 {
+        font-size: 28px;
+    }
+
+
+    .video-intro p {
+        font-size: 14px;
+    }
+
+
+    #messageVideo {
+        height: 68vh;
+
+        max-width: 88vw;
+
+        border-radius: 14px;
+    }
+
 }
