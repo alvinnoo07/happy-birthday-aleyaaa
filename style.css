@@ -1428,4 +1428,163 @@ body {
         border-radius: 14px;
     }
 
+    /* =========================================
+   PAGE 4 - LOVE ANIMATION
+========================================= */
+
+.love-screen {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #3b0715 0%,
+            #17030a 45%,
+            #080106 100%
+        );
+
+}
+
+
+/* =========================================
+   CONTAINER
+========================================= */
+
+.love-container {
+
+    position: relative;
+
+    width: 500px;
+    height: 500px;
+
+}
+
+
+/* =========================================
+   LOVE PARTICLE
+========================================= */
+
+.love-particle {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    font-size: 18px;
+
+    color: #ff2d55;
+
+    filter:
+        drop-shadow(
+            0 0 6px
+            rgba(255, 45, 85, 0.8)
+        );
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    transition:
+        left 1.8s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        top 1.8s cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        ),
+        transform 1.2s ease,
+        opacity 0.8s ease;
+
+}
+
+
+/* =========================================
+   SAAT LOVE MULAI BERGERAK
+========================================= */
+
+.love-particle.fly {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, -50%)
+        scale(1);
+
+}
+
+
+/* =========================================
+   LOVE SUDAH MEMBENTUK HATI
+========================================= */
+
+.love-particle.formed {
+
+    animation:
+        lovePulse 2s ease-in-out infinite;
+
+}
+
+
+@keyframes lovePulse {
+
+    0%,
+    100% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1);
+
+    }
+
+    50% {
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.25);
+
+    }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+    .love-container {
+
+        width: 90vw;
+
+        height: 90vw;
+
+        max-width: 420px;
+
+        max-height: 420px;
+
+    }
+
+
+    .love-particle {
+
+        font-size: 14px;
+
+    }
+
+}
+
 }
