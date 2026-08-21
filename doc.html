@@ -11,7 +11,9 @@
 
     <title>For You ❤️</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
 </head>
 
@@ -19,11 +21,13 @@
 <body>
 
 
-    <!-- =====================================
-         AUDIO BACKGROUND
-    ====================================== -->
+    <!-- =========================================
+         MUSIK
+    ========================================== -->
 
-    <audio id="music" loop>
+    <audio
+        id="music"
+        loop>
 
         <source
             src="music/raindance.mp3"
@@ -32,40 +36,37 @@
     </audio>
 
 
-
-    <!-- =====================================
+    <!-- =========================================
          MUSIC PLAYER
-    ====================================== -->
+    ========================================== -->
 
     <div
         class="music-player"
         id="musicPlayer">
 
-        <div class="music-cover">
+        <div class="music-disc">
             💿
         </div>
 
-
         <div class="music-info">
 
-            <div class="music-title">
+            <strong>
                 Raindance
-            </div>
+            </strong>
 
-            <div class="music-artist">
+            <span>
                 Dave & Tems
-            </div>
+            </span>
 
         </div>
 
-
         <div class="music-bars">
 
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
 
         </div>
 
@@ -73,93 +74,102 @@
 
 
 
-    <!-- =====================================
+    <!-- =========================================
          PAGE 1
-         AMPLOP
-    ====================================== -->
+         AMPLOP + SURAT
+    ========================================== -->
 
     <section
-        class="screen envelope-screen active"
-        id="envelopeScreen">
+        class="page active"
+        id="page1">
 
+
+        <!-- AMPLOP -->
 
         <div
-            class="envelope"
-            id="envelope">
+            class="envelope-area"
+            id="envelopeArea">
+
+            <div
+                class="envelope"
+                id="envelope">
 
 
-            <div class="envelope-top"></div>
+                <div class="envelope-back"></div>
 
+                <div class="letter-paper">
 
-            <div class="envelope-body">
+                    <div class="letter-paper-content">
 
-                <div class="paper">
-                    💌
+                        💌
+
+                    </div>
+
                 </div>
+
+                <div class="envelope-front"></div>
+
+                <div class="envelope-flap"></div>
+
 
             </div>
 
 
-        </div>
-
-
-        <p class="hint">
-            Klik amplopnya...
-        </p>
-
-
-    </section>
-
-
-
-    <!-- =====================================
-         PAGE 2
-         SURAT
-    ====================================== -->
-
-    <section
-        class="screen letter-screen"
-        id="letterScreen">
-
-
-        <div class="letter">
-
-
-            <h1>
-                Untuk Kamu ❤️
-            </h1>
-
-
-            <p>
-
-                Hai kamu...
-
-                <br><br>
-
-                Ada sesuatu yang pengen aku
-                sampaikan.
-
-                <br><br>
-
-                Jadi sebelum kamu lanjut,
-                baca surat ini sampai selesai ya.
-
-                <br><br>
-
-                Terima kasih sudah menjadi
-                seseorang yang sangat berarti
-                buat aku.
-
+            <p class="click-hint">
+                Klik amplopnya...
             </p>
 
+        </div>
 
-            <button
-                id="finishBtn">
 
-                Selesai ❤️
 
-            </button>
+        <!-- SURAT -->
 
+        <div
+            class="letter-modal"
+            id="letterModal">
+
+            <div class="letter-card">
+
+                <div class="letter-decoration">
+                    ❤️
+                </div>
+
+                <h1>
+                    Untuk Kamu
+                </h1>
+
+                <p>
+
+                    Hai kamu...
+
+                    <br><br>
+
+                    Ada sesuatu yang pengen
+                    aku sampaikan.
+
+                    <br><br>
+
+                    Jadi sebelum kamu lanjut,
+                    baca surat ini sampai selesai ya.
+
+                    <br><br>
+
+                    Terima kasih sudah menjadi
+                    seseorang yang sangat berarti
+                    buat aku.
+
+                </p>
+
+
+                <button
+                    id="letterNext">
+
+                    Selesai ❤️
+
+                </button>
+
+            </div>
 
         </div>
 
@@ -168,14 +178,14 @@
 
 
 
-    <!-- =====================================
-         PAGE 3
+    <!-- =========================================
+         PAGE 2
          MEMORY WALL
-    ====================================== -->
+    ========================================== -->
 
     <section
-        class="screen memory-screen"
-        id="memoryScreen">
+        class="page memory-page"
+        id="page2">
 
 
         <div class="memory-wall">
@@ -183,52 +193,45 @@
 
             <img
                 src="images/foto1.jpg"
-                class="memory-photo photo1">
-
+                class="memory-photo p1">
 
             <img
                 src="images/foto2.jpg"
-                class="memory-photo photo2">
-
+                class="memory-photo p2">
 
             <img
                 src="images/foto3.jpg"
-                class="memory-photo photo3">
-
+                class="memory-photo p3">
 
             <img
                 src="images/foto4.jpg"
-                class="memory-photo photo4">
-
+                class="memory-photo p4">
 
             <img
                 src="images/foto5.jpg"
-                class="memory-photo photo5">
-
+                class="memory-photo p5">
 
             <img
                 src="images/foto6.jpg"
-                class="memory-photo photo6">
-
+                class="memory-photo p6">
 
             <img
                 src="images/foto7.jpg"
-                class="memory-photo photo7">
-
+                class="memory-photo p7">
 
             <img
                 src="images/foto8.jpg"
-                class="memory-photo photo8">
+                class="memory-photo p8">
 
 
-            <div class="memory-text">
+            <div class="memory-center">
 
                 <h1>
                     Our Little Memories
                 </h1>
 
                 <p>
-                    beberapa momen yang mungkin
+                    Beberapa momen yang mungkin
                     sederhana, tapi berarti.
                 </p>
 
@@ -240,7 +243,7 @@
 
         <button
             class="next-button"
-            id="nextButton">
+            id="memoryNext">
 
             Lanjut →
 
@@ -251,97 +254,101 @@
 
 
 
-    <!-- =====================================
-         PAGE 4
+    <!-- =========================================
+         PAGE 3
          VIDEO
-    ====================================== -->
+    ========================================== -->
 
     <section
-        class="screen video-screen"
-        id="videoScreen">
+        class="page video-page"
+        id="page3">
 
 
-        <div class="video-container">
+        <div class="video-intro" id="videoIntro">
 
-
-            <!-- INTRO -->
-
-            <div
-                class="video-intro"
-                id="videoIntro">
-
-                <div class="video-icon">
-                    🎬
-                </div>
-
-
-                <h1>
-                    Satu hal lagi...
-                </h1>
-
-
-                <p>
-                    Ada sesuatu yang mau aku
-                    sampaikan buat kamu.
-                </p>
-
-
-                <button
-                    id="startVideoBtn"
-                    class="start-video-button">
-
-                    ▶ Mulai Video
-
-                </button>
-
+            <div class="video-icon">
+                🎬
             </div>
 
+            <h1>
+                Ada satu hal lagi...
+            </h1>
 
-
-            <!-- VIDEO -->
-
-            <div
-                class="video-wrapper"
-                id="videoWrapper">
-
-
-                <video
-                    id="messageVideo"
-                    playsinline>
-
-                    <source
-                        src="video/pesan.mp4"
-                        type="video/mp4">
-
-                    Browser kamu tidak
-                    mendukung video.
-
-                </video>
-
-
-                <div
-                    class="video-status"
-                    id="videoStatus">
-
-                    ❤️
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- VIDEO SELESAI -->
+            <p>
+                Tonton sampai selesai ya ❤️
+            </p>
 
             <button
-                id="videoNextBtn"
-                class="video-next-button">
+                id="startVideo">
 
-                Lanjut →
+                Mulai Video
 
             </button>
 
+        </div>
+
+
+        <div
+            class="video-box"
+            id="videoBox">
+
+
+            <video
+                id="messageVideo"
+                playsinline>
+
+                <source
+                    src="video/pesan.mp4"
+                    type="video/mp4">
+
+            </video>
+
+
+        </div>
+
+
+        <button
+            class="next-button video-next"
+            id="videoNext">
+
+            Lanjut →
+
+        </button>
+
+
+    </section>
+
+
+
+    <!-- =========================================
+         PAGE 4
+         FINAL LOVE
+    ========================================== -->
+
+    <section
+        class="page final-page"
+        id="page4">
+
+
+        <div
+            class="heart-container"
+            id="heartContainer">
+        </div>
+
+
+        <!-- NANTI KITA ISI KATA-KATA DI SINI -->
+
+        <div
+            class="final-message"
+            id="finalMessage">
+
+            <h1>
+                ❤️
+            </h1>
+
+            <p>
+                Untuk kamu.
+            </p>
 
         </div>
 
@@ -350,32 +357,11 @@
 
 
 
-    <!-- =====================================
+    <!-- =========================================
          JAVASCRIPT
-    ====================================== -->
+    ========================================== -->
 
-    
-
-    <!-- =====================================
-     PAGE 4 - LOVE
-====================================== -->
-
-<section
-    class="screen love-screen"
-    id="loveScreen">
-
-    <div
-        class="love-container"
-        id="loveContainer">
-
-        <!-- LOVE AKAN DIBUAT OLEH JAVASCRIPT -->
-
-    </div>
-
-</section>
-
-<script src="script.js"></script>
-
+    <script src="script.js"></script>
 
 </body>
 

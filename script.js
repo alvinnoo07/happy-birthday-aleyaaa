@@ -1,42 +1,6 @@
-/* ==================================================
+/* =================================================
    GET ELEMENT
-================================================== */
-
-const envelope =
-    document.getElementById("envelope");
-
-const envelopeScreen =
-    document.getElementById("envelopeScreen");
-
-const letterScreen =
-    document.getElementById("letterScreen");
-
-const finishBtn =
-    document.getElementById("finishBtn");
-
-const memoryScreen =
-    document.getElementById("memoryScreen");
-
-const nextButton =
-    document.getElementById("nextButton");
-
-const videoScreen =
-    document.getElementById("videoScreen");
-
-const videoIntro =
-    document.getElementById("videoIntro");
-
-const startVideoBtn =
-    document.getElementById("startVideoBtn");
-
-const videoWrapper =
-    document.getElementById("videoWrapper");
-
-const messageVideo =
-    document.getElementById("messageVideo");
-
-const videoNextBtn =
-    document.getElementById("videoNextBtn");
+================================================= */
 
 const music =
     document.getElementById("music");
@@ -44,483 +8,345 @@ const music =
 const musicPlayer =
     document.getElementById("musicPlayer");
 
-const loveScreen =
-    document.getElementById("loveScreen");
+const page1 =
+    document.getElementById("page1");
 
-const loveContainer =
-    document.getElementById("loveContainer");
+const page2 =
+    document.getElementById("page2");
+
+const page3 =
+    document.getElementById("page3");
+
+const page4 =
+    document.getElementById("page4");
+
+const envelope =
+    document.getElementById("envelope");
+
+const letterModal =
+    document.getElementById("letterModal");
+
+const letterNext =
+    document.getElementById("letterNext");
+
+const memoryNext =
+    document.getElementById("memoryNext");
+
+const videoIntro =
+    document.getElementById("videoIntro");
+
+const startVideo =
+    document.getElementById("startVideo");
+
+const videoBox =
+    document.getElementById("videoBox");
+
+const messageVideo =
+    document.getElementById("messageVideo");
+
+const videoNext =
+    document.getElementById("videoNext");
+
+const heartContainer =
+    document.getElementById("heartContainer");
+
+const finalMessage =
+    document.getElementById("finalMessage");
 
 
-/* ==================================================
+/* =================================================
+   PAGE SWITCH
+================================================= */
+
+function showPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach((item) => {
+
+            item.classList.remove("active");
+
+        });
+
+
+    page.classList.add("active");
+
+}
+
+
+/* =================================================
+   MUSIC PLAYER
+================================================= */
+
+function musicStart() {
+
+    if (!music) return;
+
+
+    music.play()
+        .then(() => {
+
+            musicPlayer.classList.add("show");
+
+            musicPlayer.classList.add("playing");
+
+        })
+        .catch((error) => {
+
+            console.log(
+                "Musik tidak bisa dimainkan:",
+                error
+            );
+
+        });
+
+}
+
+
+function musicPause() {
+
+    if (!music) return;
+
+    music.pause();
+
+    musicPlayer.classList.remove(
+        "playing"
+    );
+
+}
+
+
+/* =================================================
    PAGE 1
    AMPLOP
-================================================== */
+================================================= */
 
-if (envelope) {
+envelope.addEventListener(
+    "click",
+    () => {
 
-    envelope.addEventListener("click", () => {
 
-        /*
-         * Cegah amplop dibuka berkali-kali
-         */
+        /* Jangan klik dua kali */
 
         if (
             envelope.classList.contains("open")
         ) {
+
             return;
-        }
-
-
-        /*
-         * Buka amplop
-         */
-
-        envelope.classList.add("open");
-
-
-        /*
-         * Putar musik
-         */
-
-        if (music) {
-
-            music.play()
-                .then(() => {
-
-                    console.log(
-                        "🎵 Raindance mulai"
-                    );
-
-                })
-                .catch((error) => {
-
-                    console.log(
-                        "Musik gagal:",
-                        error
-                    );
-
-                });
 
         }
 
 
-        /*
-         * Tampilkan music player
-         */
+        /* Buka amplop */
 
-        if (musicPlayer) {
-
-            musicPlayer.classList.add(
-                "show"
-            );
-
-            musicPlayer.classList.add(
-                "playing"
-            );
-
-        }
+        envelope.classList.add(
+            "open"
+        );
 
 
-        /*
-         * Setelah amplop terbuka,
-         * masuk ke surat
-         */
+        /* Mulai lagu */
+
+        musicStart();
+
+
+        /* Setelah animasi amplop */
 
         setTimeout(() => {
 
-
-            envelopeScreen.classList.add(
-                "leaving"
-            );
-
-
-            setTimeout(() => {
-
-                envelopeScreen.classList.remove(
-                    "active"
-                );
-
-
-                letterScreen.classList.add(
-                    "active"
-                );
-
-            }, 600);
-
-
-        }, 1200);
-
-    });
-
-}
-
-
-/* ==================================================
-   PAGE 2
-   SURAT → MEMORY
-================================================== */
-
-if (finishBtn) {
-
-    finishBtn.addEventListener(
-        "click",
-        () => {
-
-
-            /*
-             * Hilangkan surat
-             */
-
-            letterScreen.classList.remove(
-                "active"
-            );
-
-
-            /*
-             * Munculkan memory
-             */
-
-            setTimeout(() => {
-
-                memoryScreen.classList.add(
-                    "active"
-                );
-
-            }, 700);
-
-        }
-    );
-
-}
-
-
-/* ==================================================
-   PAGE 3
-   MEMORY → VIDEO
-================================================== */
-
-if (nextButton) {
-
-    nextButton.addEventListener(
-        "click",
-        () => {
-
-
-            /*
-             * Hilangkan memory
-             */
-
-            memoryScreen.classList.remove(
-                "active"
-            );
-
-
-            /*
-             * Munculkan video page
-             */
-
-            setTimeout(() => {
-
-                videoScreen.classList.add(
-                    "active"
-                );
-
-            }, 700);
-
-        }
-    );
-
-}
-
-
-/* ==================================================
-   PAGE 4 VIDEO
-   MULAI VIDEO
-================================================== */
-
-if (startVideoBtn) {
-
-    startVideoBtn.addEventListener(
-        "click",
-        async () => {
-
-
-            console.log(
-                "🎬 Video dimulai"
-            );
-
-
-            /*
-             * Sembunyikan intro
-             */
-
-            videoIntro.style.display =
-                "none";
-
-
-            /*
-             * Tampilkan video
-             */
-
-            videoWrapper.classList.add(
-                "visible"
-            );
-
-
-            /*
-             * Reset video
-             */
-
-            messageVideo.currentTime = 0;
-
-
-            /*
-             * PAUSE RAINDANCE
-             */
-
-            if (music) {
-
-                music.pause();
-
-            }
-
-
-            /*
-             * Matikan animasi music player
-             */
-
-            if (musicPlayer) {
-
-                musicPlayer.classList.remove(
-                    "playing"
-                );
-
-            }
-
-
-            /*
-             * Play video
-             */
-
-            try {
-
-                await messageVideo.play();
-
-            }
-
-            catch (error) {
-
-                console.log(
-                    "Video gagal dimainkan:",
-                    error
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ==================================================
-   VIDEO PLAY
-================================================== */
-
-if (messageVideo) {
-
-    messageVideo.addEventListener(
-        "play",
-        () => {
-
-
-            /*
-             * Pastikan musik mati
-             */
-
-            if (music) {
-
-                music.pause();
-
-            }
-
-
-            /*
-             * Animasi video
-             */
-
-            videoWrapper.classList.add(
-                "playing"
-            );
-
-
-        }
-    );
-
-
-    /* ==================================================
-       VIDEO PAUSE
-    ================================================== */
-
-    messageVideo.addEventListener(
-        "pause",
-        () => {
-
-            videoWrapper.classList.remove(
-                "playing"
-            );
-
-        }
-    );
-
-
-    /* ==================================================
-       VIDEO SELESAI
-    ================================================== */
-
-    messageVideo.addEventListener(
-        "ended",
-        () => {
-
-
-            console.log(
-                "🎬 Video selesai"
-            );
-
-
-            /*
-             * Hilangkan status video
-             */
-
-            videoWrapper.classList.remove(
-                "playing"
-            );
-
-
-            /*
-             * PLAY RAINDANCE LAGI
-             */
-
-            if (music) {
-
-                music.play()
-                    .then(() => {
-
-                        console.log(
-                            "🎵 Raindance lanjut"
-                        );
-
-
-                        if (musicPlayer) {
-
-                            musicPlayer.classList.add(
-                                "playing"
-                            );
-
-                        }
-
-                    })
-                    .catch((error) => {
-
-                        console.log(
-                            "Musik gagal lanjut:",
-                            error
-                        );
-
-                    });
-
-            }
-
-
-            /*
-             * Tampilkan tombol lanjut
-             */
-
-            videoNextBtn.classList.add(
+            letterModal.classList.add(
                 "show"
             );
 
-        }
-    );
+        }, 900);
 
-}
-
-
-/* ==================================================
-   MUSIC PLAYER
-   CLICK = PLAY / PAUSE
-================================================== */
-
-if (musicPlayer && music) {
-
-    musicPlayer.addEventListener(
-        "click",
-        () => {
+    }
+);
 
 
-            /*
-             * Kalau musik sedang main
-             */
+/* =================================================
+   SURAT → PAGE 2
+================================================= */
 
-            if (!music.paused) {
+letterNext.addEventListener(
+    "click",
+    () => {
 
-                music.pause();
 
-                musicPlayer.classList.remove(
-                    "playing"
+        letterModal.classList.remove(
+            "show"
+        );
+
+
+        setTimeout(() => {
+
+            showPage(page2);
+
+        }, 600);
+
+    }
+);
+
+
+/* =================================================
+   PAGE 2 → PAGE 3
+================================================= */
+
+memoryNext.addEventListener(
+    "click",
+    () => {
+
+
+        showPage(page3);
+
+    }
+);
+
+
+/* =================================================
+   PAGE 3
+   MULAI VIDEO
+================================================= */
+
+startVideo.addEventListener(
+    "click",
+    () => {
+
+
+        /* Pause lagu */
+
+        musicPause();
+
+
+        /* Hilangkan intro */
+
+        videoIntro.style.display =
+            "none";
+
+
+        /* Munculkan video */
+
+        videoBox.classList.add(
+            "show"
+        );
+
+
+        /* Mulai dari awal */
+
+        messageVideo.currentTime = 0;
+
+
+        /* Play */
+
+        messageVideo.play()
+            .catch((error) => {
+
+                console.log(
+                    "Video gagal:",
+                    error
                 );
 
-                return;
+            });
 
-            }
-
-
-            /*
-             * Kalau musik sedang pause
-             */
-
-            music.play()
-                .then(() => {
-
-                    musicPlayer.classList.add(
-                        "playing"
-                    );
-
-                })
-                .catch((error) => {
-
-                    console.log(
-                        "Musik gagal:",
-                        error
-                    );
-
-                });
-
-        }
-    );
-
-}
+    }
+);
 
 
-/* ==================================================
-   PAGE 4
+/* =================================================
+   VIDEO
+   SAAT DIMAINKAN
+================================================= */
+
+messageVideo.addEventListener(
+    "play",
+    () => {
+
+        musicPause();
+
+    }
+);
+
+
+/* =================================================
+   VIDEO SELESAI
+================================================= */
+
+messageVideo.addEventListener(
+    "ended",
+    () => {
+
+
+        console.log(
+            "🎬 Video selesai"
+        );
+
+
+        /* Lagu lanjut */
+
+        musicStart();
+
+
+        /* Tombol lanjut muncul */
+
+        videoNext.classList.add(
+            "show"
+        );
+
+    }
+);
+
+
+/* =================================================
+   VIDEO → PAGE 4
+================================================= */
+
+videoNext.addEventListener(
+    "click",
+    () => {
+
+
+        /* Sembunyikan player */
+
+        musicPlayer.classList.remove(
+            "show"
+        );
+
+
+        /* Pindah Page 4 */
+
+        showPage(page4);
+
+
+        /* Mulai animasi */
+
+        startHeartAnimation();
+
+    }
+);
+
+
+/* =================================================
    BENTUK HATI
-================================================== */
+================================================= */
 
-function createHeartShape(count) {
+function getHeartPoints(amount) {
 
     const points = [];
 
 
-    for (let i = 0; i < count; i++) {
+    for (
+        let i = 0;
+        i < amount;
+        i++
+    ) {
+
 
         const t =
             (Math.PI * 2 * i) /
-            count;
+            amount;
 
 
         /*
-         * Rumus matematika bentuk hati
+         * Rumus bentuk hati
          */
 
         const x =
@@ -559,8 +385,8 @@ function createHeartShape(count) {
 
 
         points.push({
-            x: x,
-            y: y
+            x,
+            y
         });
 
     }
@@ -571,101 +397,82 @@ function createHeartShape(count) {
 }
 
 
-/* ==================================================
-   BUAT LOVE PARTICLES
-================================================== */
+/* =================================================
+   LOVE ANIMATION
+================================================= */
 
-function startLoveAnimation() {
+function startHeartAnimation() {
+
 
     console.log(
-        "❤️ LOVE ANIMATION START"
+        "❤️ Heart animation start"
     );
 
 
-    /*
-     * Pastikan container ada
-     */
+    /* Bersihkan */
 
-    if (!loveContainer) {
-
-        console.log(
-            "❌ loveContainer tidak ditemukan"
-        );
-
-        return;
-
-    }
+    heartContainer.innerHTML = "";
 
 
-    /*
-     * Bersihkan love lama
-     */
+    /* Sembunyikan tulisan */
 
-    loveContainer.innerHTML = "";
+    finalMessage.classList.remove(
+        "show"
+    );
 
 
     /*
      * Jumlah love
      */
 
-    const loveCount = 90;
+    const amount = 100;
 
 
     /*
-     * Ambil titik-titik bentuk hati
+     * Ambil posisi hati
      */
 
-    const heartPoints =
-        createHeartShape(
-            loveCount
-        );
+    const points =
+        getHeartPoints(amount);
 
 
     /*
-     * Ukuran hati
+     * Besar hati
      */
 
-    const scale = 2.4;
+    const scale = 2.3;
 
 
-    /*
-     * Buat semua love
-     */
-
-    heartPoints.forEach(
+    points.forEach(
         (point, index) => {
 
 
-            const love =
+            /*
+             * Buat love
+             */
+
+            const heart =
                 document.createElement(
                     "span"
                 );
 
 
-            /*
-             * Class CSS
-             */
-
-            love.classList.add(
-                "love-particle"
-            );
+            heart.className =
+                "heart-particle";
 
 
-            /*
-             * Bentuk love
-             */
-
-            love.innerHTML = "♥";
+            heart.textContent =
+                "♥";
 
 
             /*
-             * Semua mulai dari tengah
+             * Mulai dari tengah
              */
 
-            love.style.left =
+            heart.style.left =
                 "50%";
 
-            love.style.top =
+            heart.style.top =
                 "50%";
 
 
@@ -673,70 +480,60 @@ function startLoveAnimation() {
              * Ukuran random
              */
 
-            const size =
-                12 +
-                Math.random() * 10;
-
-
-            love.style.fontSize =
-                `${size}px`;
+            heart.style.fontSize =
+                `${12 + Math.random() * 10}px`;
 
 
             /*
-             * Masukkan ke layar
+             * Masukkan
              */
 
-            loveContainer.appendChild(
-                love
+            heartContainer.appendChild(
+                heart
             );
 
 
             /*
-             * Hitung posisi akhir
+             * Posisi akhir
              */
 
             const finalX =
                 50 +
-                point.x *
-                scale;
+                point.x * scale;
 
 
             const finalY =
                 50 +
-                point.y *
-                scale;
+                point.y * scale;
 
 
             /*
-             * Delay setiap love
-             * sedikit berbeda
+             * Delay
              */
 
             const delay =
-                300 +
-                index * 18;
+                400 +
+                index * 16;
 
 
             /*
-             * Gerakkan love
+             * Gerak ke posisi
              */
 
             setTimeout(
                 () => {
 
-
-                    love.classList.add(
+                    heart.classList.add(
                         "fly"
                     );
 
 
-                    love.style.left =
+                    heart.style.left =
                         `${finalX}%`;
 
 
-                    love.style.top =
+                    heart.style.top =
                         `${finalY}%`;
-
 
                 },
                 delay
@@ -744,93 +541,75 @@ function startLoveAnimation() {
 
 
             /*
-             * Setelah sampai,
-             * mulai pulse
+             * Setelah terbentuk,
+             * pulse
              */
 
             setTimeout(
                 () => {
 
-
-                    love.classList.add(
-                        "formed"
+                    heart.classList.add(
+                        "pulse"
                     );
 
-
                 },
-                delay + 1900
+                delay + 2300
             );
 
         }
     );
 
-}
 
+    /*
+     * Setelah semua love berkumpul
+     * munculkan tulisan
+     */
 
-/* ==================================================
-   VIDEO → PAGE 4
-================================================== */
-
-if (videoNextBtn) {
-
-    videoNextBtn.addEventListener(
-        "click",
+    setTimeout(
         () => {
 
-
-            console.log(
-                "➡️ Masuk Page 4"
+            finalMessage.classList.add(
+                "show"
             );
 
-
-            /*
-             * Hilangkan video page
-             */
-
-            videoScreen.classList.remove(
-                "active"
-            );
-
-
-            /*
-             * Tunggu transisi
-             */
-
-            setTimeout(() => {
-
-
-                /*
-                 * Tampilkan Page 4
-                 */
-
-                loveScreen.classList.add(
-                    "active"
-                );
-
-
-                /*
-                 * Mulai animasi love
-                 */
-
-                setTimeout(() => {
-
-                    startLoveAnimation();
-
-                }, 300);
-
-
-            }, 800);
-
-        }
+        },
+        4300
     );
 
 }
 
 
-/* ==================================================
-   WEBSITE READY
-================================================== */
+/* =================================================
+   MUSIC PLAYER CLICK
+================================================= */
+
+musicPlayer.addEventListener(
+    "click",
+    () => {
+
+
+        if (
+            music.paused
+        ) {
+
+            musicStart();
+
+        }
+
+        else {
+
+            musicPause();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   DEBUG
+================================================= */
 
 console.log(
-    "🚀 Website berhasil dimuat"
+    "🚀 Website berhasil dimuat!"
 );
