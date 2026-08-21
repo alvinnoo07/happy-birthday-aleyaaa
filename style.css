@@ -264,7 +264,7 @@ body {
 .music-bars i {
 
     animation:
-        musicBar .8s ease-in-out infinite alternate;
+        music  .8s ease-in-out infinite alternate;
 
 }
 
