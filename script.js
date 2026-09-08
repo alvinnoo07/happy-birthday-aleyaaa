@@ -344,12 +344,8 @@ function getHeartPoints(amount) {
             (Math.PI * 2 * i) /
             amount;
 
-
-        /*
-         * Rumus bentuk hati
-         */
-
-        const x =
+       
+         const x =
             16 *
             Math.pow(
                 Math.sin(t),
