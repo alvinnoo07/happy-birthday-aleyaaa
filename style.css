@@ -1483,3 +1483,230 @@ body {
     .video-intro { margin: 20px; padding: 37px 25px; }
     .video-box video { width: 91vw; height: auto; }
 }
+
+/* Final color pass: small details that add personality without changing the flow. */
+:root {
+    --ink: #4c2941;
+    --pink: #f65391;
+    --purple: #9a72e9;
+    --cream: #fff9fc;
+}
+
+::selection {
+    background: #f7a4c7;
+    color: #4c2941;
+}
+
+button:focus-visible,
+.envelope:focus-visible {
+    outline: 3px solid rgba(255,255,255,.9);
+    outline-offset: 5px;
+}
+
+.page {
+    isolation: isolate;
+}
+
+.page::after {
+    box-shadow:
+        0 0 100px 35px rgba(255,255,255,.08),
+        inset 0 0 100px rgba(255,255,255,.08);
+}
+
+#page1::before {
+    content: "16 ✦";
+    z-index: 0;
+    width: auto;
+    height: auto;
+    top: 10%;
+    left: 8%;
+    border-radius: 0;
+    color: rgba(255,255,255,.62);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(42px, 8vw, 90px);
+    font-style: italic;
+    filter: none;
+    opacity: .9;
+    transform: rotate(-12deg);
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+#page1::after {
+    content: "♡  birthday wishes  ♡";
+    z-index: 0;
+    width: auto;
+    height: auto;
+    right: 7%;
+    bottom: 10%;
+    border-radius: 0;
+    color: rgba(255,255,255,.72);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    filter: none;
+    opacity: 1;
+    transform: rotate(8deg);
+    animation: none;
+}
+
+@keyframes twinkle {
+    50% { opacity: .45; transform: rotate(-12deg) scale(.94); }
+}
+
+.envelope-area {
+    position: relative;
+    z-index: 1;
+}
+
+.click-hint {
+    position: relative;
+    padding: 9px 18px;
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 999px;
+    background: rgba(255,255,255,.14);
+    backdrop-filter: blur(8px);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    animation: hintPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+    50% { box-shadow: 0 0 0 8px rgba(255,255,255,0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,.18); }
+}
+
+#page2::after {
+    content: "✦  keep these close  ✦";
+    z-index: 0;
+    width: auto;
+    height: auto;
+    right: 6%;
+    bottom: 8%;
+    border-radius: 0;
+    color: rgba(130,73,137,.42);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    filter: none;
+    opacity: 1;
+    transform: rotate(-7deg);
+    animation: none;
+}
+
+.memory-center {
+    background:
+        linear-gradient(145deg, rgba(255,255,255,.9), rgba(255,246,252,.7));
+}
+
+.memory-center::before {
+    content: "✿";
+    display: block;
+    margin-bottom: 5px;
+    color: #ee73a7;
+    font-size: 22px;
+}
+
+.memory-photo {
+    border: 1px solid rgba(255,255,255,.85);
+}
+
+.memory-photo:hover {
+    border-color: #fff;
+    filter: saturate(1.15);
+}
+
+#page3::before {
+    content: "a tiny surprise";
+    z-index: 0;
+    width: auto;
+    height: auto;
+    top: 10%;
+    left: 8%;
+    border-radius: 0;
+    color: rgba(255,255,255,.34);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(25px, 4vw, 48px);
+    font-style: italic;
+    filter: none;
+    opacity: 1;
+    transform: rotate(-8deg);
+    animation: none;
+}
+
+.video-intro {
+    position: relative;
+    z-index: 1;
+}
+
+.video-intro::after {
+    content: "volume up ♫";
+    display: block;
+    margin-top: 24px;
+    color: rgba(255,255,255,.45);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+}
+
+#page4::before {
+    content: "made with love";
+    z-index: 0;
+    width: auto;
+    height: auto;
+    top: 9%;
+    left: 50%;
+    border-radius: 0;
+    color: rgba(255,182,210,.36);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 16px;
+    font-style: italic;
+    letter-spacing: .12em;
+    filter: none;
+    opacity: 1;
+    transform: translateX(-50%);
+    animation: none;
+}
+
+.heart-container {
+    z-index: 1;
+}
+
+.heart-particle:nth-child(3n) { color: #ff8fba; }
+.heart-particle:nth-child(3n + 1) { color: #ff3f78; }
+.heart-particle:nth-child(3n + 2) { color: #ffbfd7; }
+
+.final-message {
+    z-index: 2;
+    border: 1px solid rgba(255,190,215,.2);
+    box-shadow: 0 18px 50px rgba(0,0,0,.18);
+}
+
+.music-player {
+    border: 1px solid rgba(255,255,255,.14);
+}
+
+.music-player::after {
+    content: "now playing";
+    position: absolute;
+    top: 8px;
+    right: 19px;
+    color: rgba(255,255,255,.45);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 700px) {
+    #page1::before { top: 14%; left: 5%; font-size: 54px; }
+    #page1::after { right: 5%; bottom: 8%; font-size: 9px; }
+    #page2::after { right: 5%; bottom: 12%; font-size: 9px; }
+    #page3::before { top: 14%; left: 6%; font-size: 25px; }
+    #page4::before { top: 10%; font-size: 13px; }
+    .music-player::after { display: none; }
+}
