@@ -53,6 +53,46 @@ const heartContainer =
 const finalMessage =
     document.getElementById("finalMessage");
 
+const floatingDetails =
+    document.getElementById("floatingDetails");
+
+
+function createFloatingDetails() {
+
+    if (!floatingDetails) return;
+
+    const emojis = [
+        "✨",
+        "💖",
+        "🌸",
+        "⭐",
+        "♥",
+        "❀",
+        "☁️",
+        "💫"
+    ];
+
+    floatingDetails.innerHTML = "";
+
+    for (let i = 0; i < 18; i++) {
+
+        const item = document.createElement("span");
+        item.className = "floating-item";
+        item.textContent = emojis[i % emojis.length];
+
+        item.style.left = `${Math.random() * 100}%`;
+        item.style.top = `${Math.random() * 100}%`;
+        item.style.animationDelay = `${(i * 0.7).toFixed(2)}s`;
+        item.style.animationDuration = `${8 + Math.random() * 8}s`;
+        item.style.fontSize = `${12 + Math.random() * 18}px`;
+        item.style.opacity = (0.4 + Math.random() * 0.5).toFixed(2);
+
+        floatingDetails.appendChild(item);
+
+    }
+
+}
+
 
 /* =================================================
    PAGE SWITCH
@@ -605,6 +645,8 @@ musicPlayer.addEventListener(
 /* =================================================
    DEBUG
 ================================================= */
+
+createFloatingDetails();
 
 console.log(
     "🚀 Website berhasil dimuat!"
